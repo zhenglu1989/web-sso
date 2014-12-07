@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<display-name>ki4so-web</display-name>
+	<description>
+		本项目是ki4so的客户端应用示例工程，演示了如何继承Ki4so单点登录服务。
+	</description>
+
+	<!-- 配置Spring MVC -->
+	<servlet>
+		<servlet-name>springmvc</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:spring/*.xml</param-value>
+		</init-param>
+		<load-on-startup>0</load-on-startup>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>springmvc</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+	
+	<!-- ki4so集成的过滤器，必须集成该过滤器，放在最前面的位置。 -->
+	<filter>
+		<filter-name>ki4soClientFilter</filter-name>
+		<filter-class>com.github.ebnew.ki4so.client.web.filters.Ki4soClientFilter</filter-class>
+		<init-param>
+			<description>ki4so服务器主机地址</description>
+			<param-name>ki4soServerHost</param-name>
+			<param-value>http://localhost:8080/ki4so-web/</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>ki4so服务器登录地址</description>
+			<param-name>ki4soServerLoginUrl</param-name>
+			<param-value>http://localhost:8080/ki4so-web/login.do</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>ki4so服务器获取应用秘钥信息的URL地址</description>
+			<param-name>ki4soServerFetchKeyUrl</param-name>
+			<param-value>http://localhost:8080/ki4so-web/fetchKey.do</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>本应用在ki4so服务器上的应用ID值</description>
+			<param-name>ki4soClientAppId</param-name>
+			<param-value>1001</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>登录本应用处理器类</description>
+			<param-name>appClientLoginHandlerClass</param-name>
+			<param-value>com.github.ebnew.ki4so.app.custom.Ki4soAppClientLoginHandlerImpl</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>ki4soClientFilter</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+	
+	<!-- ki4so处理本地应用登出逻辑的过滤器。 -->
+	<filter>
+		<filter-name>ki4soClientLogoutFilter</filter-name>
+		<filter-class>com.github.ebnew.ki4so.client.web.filters.Ki4soClientLogoutFilter</filter-class>
+		
+		<init-param>
+			<description>登出本应用处理器类</description>
+			<param-name>appClientLogoutHandler</param-name>
+			<param-value>com.github.ebnew.ki4so.app.custom.Ki4soAppClientLogoutHandlerImpl</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>ki4soClientLogoutFilter</filter-name>
+		<url-pattern>/logout.do</url-pattern>
+	</filter-mapping>
+	
+	<!-- ki4so处理登出的javascript文件请求的过滤器。 -->
+	<filter>
+		<filter-name>ki4soLogoutJavascriptFilter</filter-name>
+		<filter-class>com.github.ebnew.ki4so.client.web.filters.Ki4soLogoutJavascriptFilter</filter-class>
+		
+		<init-param>
+			<description>ki4so服务器主机地址</description>
+			<param-name>ki4soServerHost</param-name>
+			<param-value>http://localhost:8080/ki4so-web/</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>当前应用的登出地址</description>
+			<param-name>currentAppLogoutUrl</param-name>
+			<param-value>http://localhost:8080/ki4so-app/logout.do</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>登出后跳转地址</description>
+			<param-name>logoutSuccessUrl</param-name>
+			<param-value>http://localhost:8080/ki4so-app</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>ki4soLogoutJavascriptFilter</filter-name>
+		<url-pattern>/logout.js</url-pattern>
+	</filter-mapping>
+	
+	
+	<welcome-file-list>
+		<welcome-file>/index.jsp</welcome-file>
+	</welcome-file-list>
+
+</web-app>

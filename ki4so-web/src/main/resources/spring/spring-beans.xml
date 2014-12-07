@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+	<!-- 组合凭据解析器对象。 -->
+	<bean id="credentialResolver" class="com.github.ebnew.ki4so.web.action.CompositeCredentialResolver">
+		<property name="usernamePasswordCredentialResolver">
+			<bean class="com.github.ebnew.ki4so.web.action.UsernamePasswordCredentialResolver"></bean>
+		</property>
+		<property name="encryCredentialResolver">
+			<bean class="com.github.ebnew.ki4so.web.action.EncryCredentialResolver"></bean>
+		</property>
+	</bean>
+	
+	<!-- ki4so中心接口服务 -->
+	<bean id="ki4soService" class="com.github.ebnew.ki4so.core.service.Ki4soServiceImpl" autowire="byName"></bean>
+	
+	<bean id="loginResultToView" class="com.github.ebnew.ki4so.web.action.DefaultLoginResultToView"></bean>
+	
+	<bean id="appService" class="com.github.ebnew.ki4so.core.app.AppServiceImpl"></bean>
+	
+	<bean id="keyService" class="com.github.ebnew.ki4so.core.key.KeyServiceImpl"></bean>
+	
+	<bean id="encryCredentialManager" class="com.github.ebnew.ki4so.core.authentication.EncryCredentialManagerImpl" autowire="byName"></bean>
+
+	
+	<!-- 默认的用户登录状态存储器服务。 -->
+	<bean id="userLoggedStatusStore" class="com.github.ebnew.ki4so.core.authentication.status.DefaultUserLoggedStatusStore"></bean>
+	
+	<!-- 认证管理器对象。 -->
+	<bean id="authenticationManager" class="com.github.ebnew.ki4so.core.authentication.AuthenticationManagerImpl">
+		<property name="authenticationHandlers">
+			<list>
+				<bean class="com.github.ebnew.ki4so.core.authentication.handlers.SimpleTestUsernamePasswordAuthenticationHandler"></bean>
+				<bean class="com.github.ebnew.ki4so.core.authentication.handlers.EncryCredentialAuthenticationHandler" autowire="byName"/>
+			</list>
+		</property>
+		
+		<property name="credentialToPrincipalResolvers">
+			<list>
+				<bean class="com.github.ebnew.ki4so.core.authentication.resolvers.UsernamePasswordCredentialToPrincipalResolver"></bean>
+				<bean class="com.github.ebnew.ki4so.core.authentication.resolvers.EncryCredentialToPrincipalResolver" autowire="byName"></bean>
+			</list>
+		</property>
+		
+		<property name="authenticationPostHandler">
+			<bean class="com.github.ebnew.ki4so.core.authentication.DefaultAuthenticationPostHandler" autowire="byName"></bean>
+		</property>
+	</bean>
+
+</beans>
