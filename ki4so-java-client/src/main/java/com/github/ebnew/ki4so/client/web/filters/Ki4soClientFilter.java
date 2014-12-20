@@ -166,7 +166,7 @@ public class Ki4soClientFilter extends BaseClientFilter {
 						//登录成功后，写入EC到cookie中。
 						writeEC(ki4so_client_ec, servletResponse);
 						//保存用户和session的关系
-						UserRelationSession.saveUserIdAndSessionId(encryCredentialInfo.getUserId(), session);
+						UserRelationSession.saveUserIdAndSession(encryCredentialInfo.getUserId(), session);
 						//重新定位请求，避免尾部出现长参数。
 						servletResponse.sendRedirect(url);
 						return;
