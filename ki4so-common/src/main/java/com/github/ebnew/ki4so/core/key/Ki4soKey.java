@@ -28,6 +28,10 @@ public class Ki4soKey implements Serializable{
 	 * 秘钥值。
 	 */
 	private String value;
+	/**
+	 * 私钥文件存放路径
+	 */
+	private String keyPath;
 
 	public String getKeyId() {
 		return keyId;
@@ -52,7 +56,14 @@ public class Ki4soKey implements Serializable{
 	public void setValue(String value) {
 		this.value = value;
 	}
-	
+	public String getKeyPath() {
+		return keyPath;
+	}
+
+	public void setKeyPath(String keyPath) {
+		this.keyPath = keyPath;
+	}
+
 	/**
 	 * 将本对象转换为对应的key对象。
 	 * @return Key对象。
@@ -68,6 +79,6 @@ public class Ki4soKey implements Serializable{
 	@Override
 	public String toString() {
 		return "Ki4soKey [keyId=" + keyId + ", appId=" + appId + ", value="
-				+ value + "]";
+				+ value + ",keyPath=" + keyPath + "]" ;
 	}
 }

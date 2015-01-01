@@ -111,6 +111,23 @@
 		<url-pattern>/logout.js</url-pattern>
 	</filter-mapping>
 	
+	<!-- ki4so客户端生成私钥文件：提前检测本地是否已生成私钥文件-->
+	<filter>
+		<filter-name>ki4soGeneratePrivateKeyFileFilter</filter-name>
+		<filter-class>com.github.ebnew.ki4so.client.web.filters.Ki4soGeneratePrivateKeyFileFilter</filter-class>
+		
+		<init-param>
+			<description>生成私钥文件处理类</description>
+			<param-name>appClientDefaultKeyServiceClass</param-name>
+			<param-value>com.github.ebnew.ki4so.client.key.DefaultKeyServiceImpl</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>ki4soGeneratePrivateKeyFileFilter</filter-name>
+		<url-pattern>/index.jsp</url-pattern>
+	</filter-mapping>
+	
 	
 	<welcome-file-list>
 		<welcome-file>/index.jsp</welcome-file>

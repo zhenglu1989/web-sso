@@ -1,5 +1,10 @@
 package com.github.ebnew.ki4so.core.key;
 
+/**
+ * 利用非对称加密保证key的安全性
+ * @author Huiqiang lai
+ *
+ */
 
 public interface KeyService {
 	
@@ -17,4 +22,17 @@ public interface KeyService {
 	 */
 	public Ki4soKey findKeyByAppId(String appId);
 
+	/**
+	 * 判断私钥文件是否已生成
+	 * @param token 判断文件是否存在的标识
+	 * @return true 表示私钥文件已生成；false 表示 私钥文件尚未生成
+	 */
+	public boolean checkKeyFileExistByToken(String token);
+	/**
+	 * 生成非对称加密文件(客户端生成私钥文件；服务器端生成公钥文件) 
+	 * @param token 判断文件是否存在的标识
+	 * @throws Exception 
+	 * @return true 生成文件成功；false 私钥文件已存在
+	 */
+	public boolean generateKeyFile(String token) throws Exception;
 }
