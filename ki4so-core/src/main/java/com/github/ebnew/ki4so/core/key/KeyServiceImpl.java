@@ -112,14 +112,21 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
 		return ki4soKey;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.github.ebnew.ki4so.core.key.KeyService#findKeyByAppId(java.lang.String)
+	 */
 	@Override
 	public Ki4soKey findKeyByAppId(String appId) {
 		Ki4soKey ki4soKey = null;
 		if(this.appIdMap!=null){
 			ki4soKey = this.appIdMap.get(appId);
 			try {
-				String encryptKey = encryptKey(appId,ki4soKey.getValue());	//私钥加密key
-				ki4soKey.setValue(encryptKey);		//设置私钥加密后的key
+			//公钥文件不存在
+			if(!checkKeyFileExistByToken(appId)){
+				generateKeyFile(appId);		//生成公钥文件
+			}
+			String encryptKey = encryptKey(appId,ki4soKey.getValue());	//私钥加密key
+			ki4soKey.setValue(encryptKey);		//设置私钥加密后的key
 			} catch (ParamsNotInitiatedCorrectly e) {
 				// TODO Auto-generated catch block
 				logger.log(Level.SEVERE, "public key file is not initiated！！！", e);
@@ -214,10 +221,7 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
 					"".equals(token)){
 			throw new ParamsNotInitiatedCorrectly("appIdMap Parameter Is Initiated Incorrently !!");
 		}
-		//公钥文件已存在
-		if(checkKeyFileExistByToken(token)){
-			return false; 
-		}
+		
 		 /** RSA算法要求有一个可信任的随机数源 */
         SecureRandom secureRandom = new SecureRandom();
         /** 为RSA算法创建一个KeyPairGenerator对象 */
@@ -238,7 +242,7 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
         	publicOutPutStream = new ObjectOutputStream(new FileOutputStream(PUBLIC_KEY_FILE));
             publicOutPutStream.writeObject(publicKey);
         } catch (Exception e) {
-            throw e;
+            return false;
         }
         finally{
             /** 清空缓存，关闭文件输出流 */

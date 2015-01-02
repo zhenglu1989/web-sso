@@ -44,7 +44,7 @@
 		<init-param>
 			<description>ki4so服务器获取应用秘钥信息的URL地址</description>
 			<param-name>ki4soServerFetchKeyUrl</param-name>
-			<param-value>http://localhost:8080/ki4so-web/fetchKey.do</param-value>
+			<param-value>http://localhost/ki4so-web/fetchKey.do</param-value>
 		</init-param>
 		
 		<init-param>
