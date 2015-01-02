@@ -44,7 +44,7 @@
 		<init-param>
 			<description>ki4so服务器获取应用秘钥信息的URL地址</description>
 			<param-name>ki4soServerFetchKeyUrl</param-name>
-			<param-value>http://localhost：8080/ki4so-web/fetchKey.do</param-value>
+			<param-value>http://localhost:8080/ki4so-web/fetchKey.do</param-value>
 		</init-param>
 		
 		<init-param>
@@ -112,6 +112,7 @@
 	</filter-mapping>
 	
 	<!-- ki4so客户端生成私钥文件：提前检测本地是否已生成私钥文件-->
+	<!--  
 	<filter>
 		<filter-name>ki4soGeneratePrivateKeyFileFilter</filter-name>
 		<filter-class>com.github.ebnew.ki4so.client.web.filters.Ki4soGeneratePrivateKeyFileFilter</filter-class>
@@ -127,7 +128,7 @@
 		<filter-name>ki4soGeneratePrivateKeyFileFilter</filter-name>
 		<url-pattern>/index.jsp</url-pattern>
 	</filter-mapping>
-	
+	-->
 	
 	<welcome-file-list>
 		<welcome-file>/index.jsp</welcome-file>

@@ -89,10 +89,10 @@ public class DefaultKeyServiceImpl implements KeyService {
 		if (ki4soKey == null) {
 			// do fetch key from remote server.
 			this.ki4soKey = fetchKeyFromKi4soServer();
-			//利用本地私钥解密key
+			/*//利用本地私钥解密key
 			String keyValue = decryptKey(appId,ki4soKey.getValue());
 			//设置解密后的key
-			ki4soKey.setValue(keyValue);
+			ki4soKey.setValue(keyValue);*/
 		}
 		return ki4soKey;
 	}
@@ -112,9 +112,9 @@ public class DefaultKeyServiceImpl implements KeyService {
 				EntityUtils.consume(entity);
 				ki4so = JSON.parseObject(content, Ki4soKey.class);
 				//私钥解密key
-				String decryptValue = decryptKey(ki4so.getAppId(),ki4so.getValue());
+				//String decryptValue = decryptKey(ki4so.getAppId(),ki4so.getValue());
 				//设置解密后的key
-				ki4so.setValue(decryptValue);
+				//ki4so.setValue(decryptValue);
 				
 				return ki4so;
 			}

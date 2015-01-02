@@ -96,9 +96,10 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
 	@Override
 	public Ki4soKey findKeyByKeyId(String keyId) {
 		Ki4soKey ki4soKey = null;
-		loadAppData();	//重新加载数据
+		//loadAppData();	//重新加载数据
 		if(this.keyMap!=null){
 			ki4soKey = this.keyMap.get(keyId);
+			/*
 			try {
 				String encryptKey = encryptKey(keyId,ki4soKey.getValue());	//私钥加密key
 				ki4soKey.setValue(encryptKey);		//设置私钥加密后的key
@@ -108,9 +109,10 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				logger.log(Level.SEVERE, "cipher the key is wrong", e);
-			}
+			}*/
+			return ki4soKey;
 		}
-		return ki4soKey;
+		return null;
 	}
 
 	/* (non-Javadoc)
@@ -119,9 +121,10 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
 	@Override
 	public Ki4soKey findKeyByAppId(String appId) {
 		Ki4soKey ki4soKey = null;
-		loadAppData();	//重新加载数据
+		//loadAppData();	//重新加载数据
 		if(this.appIdMap!=null){
 			ki4soKey = this.appIdMap.get(appId);
+			/*
 			try {
 			//公钥文件不存在
 			if(!checkKeyFileExistByToken(appId)){
@@ -135,9 +138,10 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				logger.log(Level.SEVERE, "cipher the key is wrong", e);
-			}
+			}*/
+			return ki4soKey;
 		}
-		return ki4soKey;
+		return null;
 	}
 	/**
 	 * 使用公钥将key加密
@@ -203,6 +207,7 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
 	@Override
 	public boolean checkKeyFileExistByToken(String token) {
 		// TODO Auto-generated method stub
+		//loadAppData();
 		Ki4soKey ki4soKey = appIdMap.get(token);		//获取当前运用的appId
 		PUBLIC_KEY_PATH = ki4soKey.getKeyPath();		//获取公钥文件存放路径
 		PUBLIC_KEY_FILE = PUBLIC_KEY_PATH + token;		//获取公钥文件名
