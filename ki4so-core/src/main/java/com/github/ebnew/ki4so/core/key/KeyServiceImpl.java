@@ -96,6 +96,7 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
 	@Override
 	public Ki4soKey findKeyByKeyId(String keyId) {
 		Ki4soKey ki4soKey = null;
+		loadAppData();	//重新加载数据
 		if(this.keyMap!=null){
 			ki4soKey = this.keyMap.get(keyId);
 			try {
@@ -118,6 +119,7 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
 	@Override
 	public Ki4soKey findKeyByAppId(String appId) {
 		Ki4soKey ki4soKey = null;
+		loadAppData();	//重新加载数据
 		if(this.appIdMap!=null){
 			ki4soKey = this.appIdMap.get(appId);
 			try {

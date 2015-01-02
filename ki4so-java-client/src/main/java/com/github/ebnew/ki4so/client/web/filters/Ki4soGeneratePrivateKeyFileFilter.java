@@ -51,6 +51,7 @@ public class Ki4soGeneratePrivateKeyFileFilter extends BaseClientFilter{
 		}
 		//过滤器继续执行
 		filter.doFilter(request, response);
+		
 	}
 
 	@Override
@@ -60,7 +61,7 @@ public class Ki4soGeneratePrivateKeyFileFilter extends BaseClientFilter{
 		//获取appId参数值
 		appId = getInitParameterWithDefalutValue(filterConfig,"ki4soClientAppId","1001");
 		//获取服务器访问路径参数值
-		ki4soServerFetchKeyUrl = getInitParameterWithDefalutValue(filterConfig,"ki4soServerFetchKeyUrl","http://localhost/ki4so-web/fetchKey.do");
+		ki4soServerFetchKeyUrl = getInitParameterWithDefalutValue(filterConfig,"ki4soServerFetchKeyUrl","http://localhost:8080/ki4so-web/fetchKey.do");
 		//构造登录本应用的处理器对象。
 		if(!StringUtils.isEmpty(ki4soGeneratePrivateKeyFileClass)){
 			try{

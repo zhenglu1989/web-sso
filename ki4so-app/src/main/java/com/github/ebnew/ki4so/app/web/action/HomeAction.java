@@ -16,7 +16,6 @@ public class HomeAction {
 	public ModelAndView home(HttpServletRequest request, HttpSession session){
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("user", session.getAttribute(Ki4soAppClientLoginHandlerImpl.USER_KEY));
-
 		return mv;
 	}
 

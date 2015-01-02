@@ -283,7 +283,6 @@ public class DefaultKeyServiceImpl implements KeyService {
             /** 清空缓存，关闭文件输出流 */
         	keyOutPutStream.close();
         }
-     
         return true;
 	}
 }
