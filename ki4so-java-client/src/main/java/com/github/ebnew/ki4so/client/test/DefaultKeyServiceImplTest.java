@@ -8,7 +8,7 @@ import com.github.ebnew.ki4so.client.key.DefaultKeyServiceImpl;
 public class DefaultKeyServiceImplTest {
 
 	DefaultKeyServiceImpl keyService = new DefaultKeyServiceImpl
-				("http://localhost:80/ki4so-web/fetchKey.do","1001");
+				("http://localhost:8080/ki4so-web/fetchKey.do","1001");
 	
 	@Test
 	public void testCheckKeyFileExistByToken(){

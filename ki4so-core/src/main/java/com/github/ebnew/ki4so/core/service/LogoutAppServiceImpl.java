@@ -10,7 +10,6 @@ import org.apache.http.NameValuePair;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.impl.client.AbstractHttpClient;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 
@@ -18,7 +17,21 @@ import com.github.ebnew.ki4so.core.app.App;
 import com.github.ebnew.ki4so.core.app.AppService;
 import com.github.ebnew.ki4so.core.authentication.status.UserLoggedStatus;
 import com.github.ebnew.ki4so.core.authentication.status.UserLoggedStatusStore;
-
+//	/**
+//	 * 登出app接口
+//	 */
+//	private LogoutAppService logoutAppService;
+//	public void setLogoutAppService(LogoutAppService logoutAppService) {
+//		this.logoutAppService = logoutAppService;
+//	}
+/**
+	 * 该方法主要是退出app
+	 */
+// 通过userID获取状态信息
+// 通过状态信息获取appID
+// 通过appId获取app信息
+// 调用让session失效的方法
+//这里是说明这个app登出成功了
 public class LogoutAppServiceImpl implements LogoutAppService {
 
 	private UserLoggedStatusStore userLoggedStatusStore;

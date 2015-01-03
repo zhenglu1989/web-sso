@@ -64,3 +64,4 @@ public class Ki4soLogoutFilter extends BaseClientFilter {
 	}
 
 }
+

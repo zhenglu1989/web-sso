@@ -54,7 +54,7 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
     private static final int KEYSIZE = 1024;
     /** 指定加密算法为RSA */
     private static final String ALGORITHM = "RSA";
-    private Key privateKey;
+    //private Key privateKey;
 	
 	/**
 	 * 秘钥映射表，key是keyId,value是Key对象。
@@ -99,17 +99,6 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
 		//loadAppData();	//重新加载数据
 		if(this.keyMap!=null){
 			ki4soKey = this.keyMap.get(keyId);
-			/*
-			try {
-				String encryptKey = encryptKey(keyId,ki4soKey.getValue());	//私钥加密key
-				ki4soKey.setValue(encryptKey);		//设置私钥加密后的key
-			} catch (ParamsNotInitiatedCorrectly e) {
-				// TODO Auto-generated catch block
-				logger.log(Level.SEVERE, "public key file is not initiated！！！", e);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				logger.log(Level.SEVERE, "cipher the key is wrong", e);
-			}*/
 			return ki4soKey;
 		}
 		return null;
@@ -124,21 +113,6 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
 		//loadAppData();	//重新加载数据
 		if(this.appIdMap!=null){
 			ki4soKey = this.appIdMap.get(appId);
-			/*
-			try {
-			//公钥文件不存在
-			if(!checkKeyFileExistByToken(appId)){
-				generateKeyFile(appId);		//生成公钥文件
-			}
-			String encryptKey = encryptKey(appId,ki4soKey.getValue());	//私钥加密key
-			ki4soKey.setValue(encryptKey);		//设置私钥加密后的key
-			} catch (ParamsNotInitiatedCorrectly e) {
-				// TODO Auto-generated catch block
-				logger.log(Level.SEVERE, "public key file is not initiated！！！", e);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				logger.log(Level.SEVERE, "cipher the key is wrong", e);
-			}*/
 			return ki4soKey;
 		}
 		return null;
@@ -220,7 +194,7 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
 	 * @see com.github.ebnew.ki4so.core.key.KeyService#generateKeyFile()
 	 */
 	@Override
-	public boolean generateKeyFile(String token) throws ParamsNotInitiatedCorrectly,Exception{
+	public Object generateKeyFile(String token) throws ParamsNotInitiatedCorrectly,Exception{
 		// TODO Auto-generated method stub
 		//判断运用ID列表是否为空
 		if(appIdMap == null || 
@@ -241,7 +215,7 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
         /** 得到公钥 */
         Key publicKey = keyPair.getPublic();
         /** 得到私钥 */
-        privateKey = keyPair.getPrivate();
+        Key privateKey = keyPair.getPrivate();
         
         ObjectOutputStream publicOutPutStream = null;
         try {
@@ -249,12 +223,13 @@ public class KeyServiceImpl extends FileSystemDao implements KeyService {
         	publicOutPutStream = new ObjectOutputStream(new FileOutputStream(PUBLIC_KEY_FILE));
             publicOutPutStream.writeObject(publicKey);
         } catch (Exception e) {
-            return false;
+        	throw e;
         }
         finally{
             /** 清空缓存，关闭文件输出流 */
         	publicOutPutStream.close();
         }
-        return true;
+        //返回私钥文件
+        return privateKey;
 	}
 }

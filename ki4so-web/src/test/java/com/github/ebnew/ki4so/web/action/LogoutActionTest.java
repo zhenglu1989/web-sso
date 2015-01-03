@@ -1,11 +1,13 @@
 package com.github.ebnew.ki4so.web.action;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpSession;
 
 import junit.framework.Assert;
 
@@ -90,10 +92,10 @@ public class LogoutActionTest {
 	
 
 	@Test
-	public void testLogout() {
+	public void testLogout() throws IOException {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpServletResponse response = new MockHttpServletResponse();
-		
+		HttpSession session = request.getSession();
 		CredentialResolver credentialResolver = Mockito.mock(CredentialResolver.class);
 		logoutAction.setCredentialResolver(credentialResolver);
 		
@@ -101,14 +103,14 @@ public class LogoutActionTest {
 		logoutAction.setKi4soService(ki4soService);
 		
 		//测试没有cookie的情况。
-		logoutAction.logout(request, response);
+		logoutAction.logout(request, response,session);
 		Assert.assertEquals(0, response.getCookies().length);
 		
 		//测试存在cookie，登出后要清除cookie值。
 		request = new MockHttpServletRequest();
 		response = new MockHttpServletResponse();
 		request.setCookies(new Cookie(WebConstants.KI4SO_SERVER_ENCRYPTED_CREDENTIAL_COOKIE_KEY, "dddsd"));
-		logoutAction.logout(request, response);
+		logoutAction.logout(request, response,session);
 		Assert.assertEquals(1, response.getCookies().length);
 		Assert.assertEquals(0, response.getCookies()[0].getMaxAge());
 	}

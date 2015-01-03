@@ -190,4 +190,5 @@ public class Ki4soServiceTest {
 			Assert.fail("预期和实际登录对象不等");
 		}
 	}
+	
 }
