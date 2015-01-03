@@ -35,10 +35,10 @@ ki4so，英文全称是：kiss sso意思是简约单点登录系统，由于s太
 单点登录系统有很多，开源的成熟的产品也有很多，比如耶鲁大学的cas等。
 
 1. 无状态。系统可伸缩性好。
-2. 简单轻量级。
+2. 简单轻量级。ki4so的产品会坚持做得小而美，不会继续做大。我们只将统一登录和统一退出这一件事情做好，其它的事情交给别人做吧。我们会增强ki4so的集成特性。
 3. 性能高。
-4. 安全性高。
-5. 质量高，有大量的单元测试保障代码质量。
+4. 安全性较高。安全会在我们考虑的一个因素，我们会持续将安全做好，但是目前只是最初级的安全性。
+5. 为互联网和移动互联网项目而生。该项目做的时候就是互联网进入鼎盛时期，移动互联网处于新兴时期，我们就是为未来而做的一个开源单点登录产品。
 
 #ki4so常见问题指南
 
@@ -55,20 +55,6 @@ ki4so，英文全称是：kiss sso意思是简约单点登录系统，由于s太
 [ki4so客户端开发包协议说明](https://github.com/ebnew/ki4so/blob/master/docs/user/KI4SO_CLIENT_DEV_GUIDE.md "ki4so客户端开发包协议说明")
 
 
-#ki4so代码质量
-##ki4so-core工程代码测试覆盖率
-
-![ki4so-core工程代码测试覆盖率](http://github.com/ebnew/ki4so/raw/master/images/cobertura_ki4so_core.jpg)
-
-##ki4so-web工程代码测试覆盖率
-
-![ki4so-web工程代码测试覆盖率](http://github.com/ebnew/ki4so/raw/master/images/cobertura_ki4so_web.jpg)
-
-##ki4so-common工程代码测试覆盖率
-
-![ki4so-common工程代码测试覆盖率](http://github.com/ebnew/ki4so/raw/master/images/cobertura_ki4so_common.jpg)
-
-
 
 
 
@@ -79,17 +65,6 @@ ki4so，英文全称是：kiss sso意思是简约单点登录系统，由于s太
 #项目许可协议
 项目遵循[Apache License 2.0](http://www.apache.org/licenses/LICENSE-2.0)开源协议
 
-#产品状态
-目前ki4so处于1.0.1-SNAPSHOT的开发期，目前还没有可以发布正式可以用的版本。目前产品完成的需求如下：
-a.完成统一登录。
-
-b.完成统一登出。目前统一登出是在客户端实现，使用jsonp实现，原生的javascript，不依赖任何lib包。集成非常简单。
-
-c.客户端目前只完成了java原生应用客户端，其它语言暂时未开发。
-
-d.单元测试正在持续补充中，引入了代码覆盖率检查工具，依据覆盖率进行代码测试。性能优化是下一步要做的事情。
-
-e.代码结构有待优化。
 
 
 #项目版本号说明
@@ -110,5 +85,3 @@ e.代码结构有待优化。
 
 1. docs 该目录下存放的是各种项目文档，包括架构设计、概要设计、详细设计、用户手册、和安装手册等，我们承诺本项目将成为文档最全的项目之一，方便所有人学习和使用。 子目录的说明请查看目录下的README.md文件。
 2. pom.xml。该文件是maven工程描述文件，其它的两个目录ki4so-core和ki4so-web都是两个maven工程，具体请参考描述文件说明，若不了解maven是什么，请google之。
-
-
