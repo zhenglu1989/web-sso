@@ -32,7 +32,7 @@ public interface KeyService {
 	 * 生成非对称加密文件(客户端生成私钥文件；服务器端生成公钥文件) 
 	 * @param token 判断文件是否存在的标识
 	 * @throws Exception 
-	 * @return true 生成文件成功；false 私钥文件已存在
+	 * @return 返回信息
 	 */
-	public boolean generateKeyFile(String token) throws Exception;
+	public Object generateKeyFile(String token) throws Exception;
 }

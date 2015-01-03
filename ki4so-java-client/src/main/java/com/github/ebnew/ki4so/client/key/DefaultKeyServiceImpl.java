@@ -89,10 +89,6 @@ public class DefaultKeyServiceImpl implements KeyService {
 		if (ki4soKey == null) {
 			// do fetch key from remote server.
 			this.ki4soKey = fetchKeyFromKi4soServer();
-			/*//利用本地私钥解密key
-			String keyValue = decryptKey(appId,ki4soKey.getValue());
-			//设置解密后的key
-			ki4soKey.setValue(keyValue);*/
 		}
 		return ki4soKey;
 	}
@@ -111,11 +107,6 @@ public class DefaultKeyServiceImpl implements KeyService {
 				String content = EntityUtils.toString(entity);
 				EntityUtils.consume(entity);
 				ki4so = JSON.parseObject(content, Ki4soKey.class);
-				//私钥解密key
-				//String decryptValue = decryptKey(ki4so.getAppId(),ki4so.getValue());
-				//设置解密后的key
-				//ki4so.setValue(decryptValue);
-				
 				return ki4so;
 			}
 		} catch (Exception e) {
@@ -235,7 +226,7 @@ public class DefaultKeyServiceImpl implements KeyService {
 	 * @see com.github.ebnew.ki4so.core.key.KeyService#generateKeyFile()
 	 */
 	@Override
-	public boolean generateKeyFile(String token) throws Exception{
+	public Object generateKeyFile(String token) throws Exception{
 		// TODO Auto-generated method stubj
 		String keyFile = null;		//获取服务器端生成秘钥
 		HttpPost httpPost = null;
