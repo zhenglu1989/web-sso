@@ -62,7 +62,7 @@
 	
 	<filter-mapping>
 		<filter-name>ki4soClientFilter</filter-name>
-		<url-pattern>*.do</url-pattern>
+		<url-pattern>/home.do</url-pattern>
 	</filter-mapping>
 	
 	<!-- ki4so处理本地应用登出逻辑的过滤器。 -->
@@ -82,7 +82,40 @@
 		<url-pattern>/logout.do</url-pattern>
 	</filter-mapping>
 	
-	<!-- ki4so处理登出的javascript文件请求的过滤器。 -->
+	<!-- ki4so处理登出的请求的过滤器。 -->
+	<filter>
+		<filter-name>ki4soLogoutFilter</filter-name>
+		<filter-class>com.github.ebnew.ki4so.client.web.filters.Ki4soLogoutFilter</filter-class>
+		
+		<init-param>
+			<description>ki4so服务器主机地址</description>
+			<param-name>ki4soServerHost</param-name>
+			<param-value>http://localhost:8080/ki4so-web/</param-value>
+		</init-param>
+		<init-param>
+			<description>ki4so服务器登出地址</description>
+			<param-name>ki4soServerLogout</param-name>
+			<param-value>http://localhost:8080/ki4so-web/logout.do</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>当前应用的登出地址</description>
+			<param-name>currentAppLogoutUrl</param-name>
+			<param-value>http://localhost:8080/ki4so-app/logout.do</param-value>
+		</init-param>
+		
+		<init-param>
+			<description>登出后跳转地址</description>
+			<param-name>logoutSuccessUrl</param-name>
+			<param-value>http://localhost:8080/ki4so-app</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>ki4soLogoutFilter</filter-name>
+		<url-pattern>/logoutByUserId.do</url-pattern>
+	</filter-mapping>
+	<!-- ki4so处理登出的javascript文件请求的过滤器。 
 	<filter>
 		<filter-name>ki4soLogoutJavascriptFilter</filter-name>
 		<filter-class>com.github.ebnew.ki4so.client.web.filters.Ki4soLogoutJavascriptFilter</filter-class>
@@ -110,7 +143,7 @@
 		<filter-name>ki4soLogoutJavascriptFilter</filter-name>
 		<url-pattern>/logout.js</url-pattern>
 	</filter-mapping>
-	
+	-->
 	<!-- ki4so客户端生成私钥文件：提前检测本地是否已生成私钥文件-->
 	<!--  
 	<filter>

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,6 +14,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.alibaba.fastjson.JSON;
+import com.github.ebnew.ki4so.client.web.filters.Ki4soClientFilter;
 import com.github.ebnew.ki4so.core.app.App;
 import com.github.ebnew.ki4so.core.authentication.Credential;
 import com.github.ebnew.ki4so.core.service.Ki4soService;
@@ -97,10 +99,11 @@ public class LogoutAction {
 	 * @param request 请求对象。
 	 * @param response 响应对象。
 	 * 直接将jsonp格式的登出结果输出到response中。
+	 * @throws IOException 
 	 */
 	@RequestMapping("/logout")
 	public void logout(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response,HttpSession session) throws IOException {
 		//清除用户登录应用列表。
 		//解析用户凭据。
 		Credential credential = credentialResolver.resolveCredential(request);
@@ -117,19 +120,10 @@ public class LogoutAction {
 				}
 			}
 		}
-		String json = "{result:true}";
-		//拼接jsonp格式的数据。
-		StringBuffer sb = new StringBuffer();
-		sb.append(getCallbackName("logoutKi4soServer", request))
-		.append("(")
-		.append(json)
-		.append(");");
-		//写入jsonp格式的数据。
-		try {
-			response.setContentType("application/x-javascript");
-			response.setCharacterEncoding("UTF-8");
-			response.getWriter().println(sb.toString());
-		} catch (IOException e) {
+		String service = request.getParameter(WebConstants.SERVICE_PARAM_NAME);
+		if(!StringUtils.isEmpty(service)){
+				response.sendRedirect(service);
+				session.setAttribute(Ki4soClientFilter.USER_STATE_IN_SESSION_KEY,null);
 		}
 	}
 

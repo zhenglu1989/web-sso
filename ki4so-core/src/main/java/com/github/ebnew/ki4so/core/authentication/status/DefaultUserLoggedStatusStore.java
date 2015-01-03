@@ -10,17 +10,27 @@ import java.util.Set;
 
 import org.springframework.util.StringUtils;
 
+import com.github.ebnew.ki4so.core.service.LogoutAppService;
+
 public class DefaultUserLoggedStatusStore implements UserLoggedStatusStore {
 	
 	/**
 	 * 用户登录状态集合，不允许重复状态值。
 	 */
 	private Set<UserLoggedStatus> loggedStatus = new HashSet<UserLoggedStatus>();
-
+	
 	public Set<UserLoggedStatus> getLoggedStatus() {
 		return loggedStatus;
 	}
 
+	/**
+	 * 登出app接口
+	 */
+	private LogoutAppService logoutAppService;
+	
+	public void setLogoutAppService(LogoutAppService logoutAppService) {
+		this.logoutAppService = logoutAppService;
+	}
 
 	/**
 	 * 用户标识和用户状态列表之间的映射表，相当于一个索引，方便根据用户标识查询所有的登录状态标。
@@ -71,6 +81,7 @@ public class DefaultUserLoggedStatusStore implements UserLoggedStatusStore {
 		if(!StringUtils.isEmpty(userId)){
 			List<UserLoggedStatus> list = this.userIdIndexMap.get(userId);
 			if(list!=null){
+				this.logoutAppService.logoutApp(userId);
 				list.clear();
 				this.userIdIndexMap.put(userId, null);
 			}
