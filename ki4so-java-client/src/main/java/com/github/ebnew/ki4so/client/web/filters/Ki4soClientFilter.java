@@ -163,8 +163,6 @@ public class Ki4soClientFilter extends BaseClientFilter {
 								}
 							}
 						}
-						//登录成功后，写入EC到cookie中。
-						writeEC(ki4so_client_ec, servletResponse);
 						//保存用户和session的关系
 						UserRelationSession.saveUserIdAndSession(encryCredentialInfo.getUserId(),session);
 						//重新定位请求，避免尾部出现长参数。
@@ -183,8 +181,6 @@ public class Ki4soClientFilter extends BaseClientFilter {
 		}
 		//处理异常信息。
 		catch (Exception e) {
-			removeCookeEC(servletRequest, servletResponse);
-			
 			//否则凭据信息不合法，跳转到Ki4so登录页面。
 			servletResponse.sendRedirect(buildRedirectToKi4soServer(servletRequest));
 			return;
@@ -219,32 +215,7 @@ public class Ki4soClientFilter extends BaseClientFilter {
 		String ec = null;
 		if(request!=null){
 			ec = request.getParameter(WebConstants.KI4SO_CLIENT_ENCRYPTED_CREDENTIAL_COOKIE_KEY);
-			//再从cookie中获取值。
-			if(StringUtils.isEmpty(ec)){
-				Cookie cookie = getCookie(request, WebConstants.KI4SO_CLIENT_ENCRYPTED_CREDENTIAL_COOKIE_KEY);
-				if(cookie!=null){
-					ec = cookie.getValue().trim();
-				}
-			}
 		}
 		return ec;
 	}
-	
-	/**
-	 * 将EC的值写入到服务器的cookie中。
-	 * @param ec EC值。
-	 * @param response Http响应对象。
-	 */
-	protected void writeEC(String ec, HttpServletResponse response){
-		//使用URL进行编码，避免写入cookie错误。
-		try {
-			ec = URLEncoder.encode(ec, "UTF-8");
-			response.addCookie(new Cookie(
-					WebConstants.KI4SO_CLIENT_ENCRYPTED_CREDENTIAL_COOKIE_KEY, ec));
-		} catch (UnsupportedEncodingException e) {
-			logger.log(Level.SEVERE, "encode with URL error", e);
-		}
-		
-	}
-	
 }

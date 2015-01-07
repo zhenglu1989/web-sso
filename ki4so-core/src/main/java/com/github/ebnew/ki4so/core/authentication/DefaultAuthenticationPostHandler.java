@@ -27,9 +27,14 @@ public class DefaultAuthenticationPostHandler implements
 	private static Logger logger = Logger.getLogger(DefaultAuthenticationPostHandler.class.getName());
 	
 	/**
-	 * 密钥持续过期时间，3个月。
+	 * 服务端持续过期时间，3个月。
 	 */
-	private static final long DURATION = 3L*30*24*60*60*1000;
+	private static final long SERVER_DURATION = 3L*30*24*60*60*1000;
+	
+	/**
+	 * 客户端端持续过期时间，60秒钟。
+	 */
+	private static final long CLIENT_DURATION = 60*1000;
 	
 	private EncryCredentialManager encryCredentialManager;
 	
@@ -92,7 +97,7 @@ public class DefaultAuthenticationPostHandler implements
 				logger.log(Level.SEVERE, "no ki4so key info.");
 				throw NoKi4soKeyException.INSTANCE; 
 			}
-			String encryCredential = encryCredentialManager.encrypt(buildEncryCredentialInfo(ki4soApp.getAppId(), authentication, principal));
+			String encryCredential = encryCredentialManager.encrypt(buildEncryCredentialInfo(ki4soApp.getAppId(), authentication, principal, SERVER_DURATION));
 			//加密后的凭据信息写入到动态属性中。
 			Map<String, Object> attributes = authentication.getAttributes();
 			if(attributes==null){
@@ -103,8 +108,9 @@ public class DefaultAuthenticationPostHandler implements
 		}
 	}
 	
-	/*
+	/**
 	 * 使用ki4so服务器本身的key对凭据信息进行加密处理。
+	 * @param duration 密钥持续时间。
 	 */
 	private void encryCredentialWithAppKey(AuthenticationImpl authentication, Credential credential, Principal principal){
 		//获得登录的应用信息。
@@ -120,7 +126,7 @@ public class DefaultAuthenticationPostHandler implements
 				//查找ki4so服务对应的应用信息。
 				App clientApp = appService.findAppByHost(service);
 				if(clientApp!=null){
-					String encryCredential = encryCredentialManager.encrypt(buildEncryCredentialInfo(clientApp.getAppId(), authentication, principal));
+					String encryCredential = encryCredentialManager.encrypt(buildEncryCredentialInfo(clientApp.getAppId(), authentication, principal, CLIENT_DURATION));
 					//加密后的凭据信息写入到动态属性中。
 					Map<String, Object> attributes = authentication.getAttributes();
 					if(attributes==null){
@@ -138,7 +144,7 @@ public class DefaultAuthenticationPostHandler implements
 		}
 	}
 	
-	private EncryCredentialInfo buildEncryCredentialInfo(String appId, AuthenticationImpl authentication, Principal principal){
+	private EncryCredentialInfo buildEncryCredentialInfo(String appId, AuthenticationImpl authentication, Principal principal, long duration){
 		EncryCredentialInfo encryCredentialInfo = new EncryCredentialInfo();
                 if(authentication==null || principal==null){
                     return encryCredentialInfo;
@@ -152,7 +158,7 @@ public class DefaultAuthenticationPostHandler implements
 		encryCredentialInfo.setCreateTime(authentication.getAuthenticatedDate());
 		encryCredentialInfo.setUserId(principal.getId());
 		encryCredentialInfo.setKeyId(ki4soKey.getKeyId());
-		Date expiredTime = new Date((authentication.getAuthenticatedDate().getTime()+DURATION)); 
+		Date expiredTime = new Date((authentication.getAuthenticatedDate().getTime()+ duration)); 
 		encryCredentialInfo.setExpiredTime(expiredTime);
 		return encryCredentialInfo;
 	}
