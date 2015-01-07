@@ -3,6 +3,7 @@ package com.github.ebnew.ki4so.web.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
@@ -21,6 +22,8 @@ import com.github.ebnew.ki4so.web.utils.WebConstants;
  */
 @Controller
 public class LoginAction {
+	
+	private static final Logger LOGGER = Logger.getLogger(LoginAction.class);
 	
 	@Autowired
 	protected CredentialResolver credentialResolver;
@@ -56,16 +59,20 @@ public class LoginAction {
 	@RequestMapping("/login")
 	public ModelAndView login(HttpServletRequest request,
 			HttpServletResponse response) {
+		
 		ModelAndView mv = new ModelAndView("login");
+		LOGGER.debug("enter login action");
 		//解析用户凭据。
 		Credential credential = credentialResolver.resolveCredential(request);
 		//没有提供任何认证凭据。
 		if(credential==null){
 			//设置serivce地址到session中。
 			String service = request.getParameter(WebConstants.SERVICE_PARAM_NAME);
+			LOGGER.debug("the servcie is "+service);
 			if(!StringUtils.isEmpty(service)){
 				request.getSession().setAttribute(WebConstants.KI4SO_SERVICE_KEY_IN_SESSION, service);
 			}
+			LOGGER.info("no credential, return login page");
 			//返回到登录页面，索取用户凭据。
 			return mv;
 		}

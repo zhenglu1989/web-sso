@@ -34,6 +34,7 @@
 			<version>${powermock.version}</version>
 			<scope>test</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.powermock</groupId>
 			<artifactId>powermock-api-mockito</artifactId>
@@ -48,6 +49,7 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
@@ -55,5 +57,11 @@
 			<type>jar</type>
 			<scope>compile</scope>
 		</dependency>
+		
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+		</dependency>
+		
 	</dependencies>
 </project>

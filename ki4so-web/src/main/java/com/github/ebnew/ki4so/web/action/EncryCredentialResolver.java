@@ -3,6 +3,7 @@ package com.github.ebnew.ki4so.web.action;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.util.StringUtils;
 
 import com.github.ebnew.ki4so.core.authentication.Credential;
@@ -15,6 +16,8 @@ import com.github.ebnew.ki4so.web.utils.WebConstants;
  *
  */
 public class EncryCredentialResolver implements CredentialResolver {
+	
+	private static final Logger LOGGER = Logger.getLogger(EncryCredentialResolver.class);
 
 	@Override
 	public Credential resolveCredential(HttpServletRequest request) {
@@ -32,6 +35,7 @@ public class EncryCredentialResolver implements CredentialResolver {
 				}
 				//如果cookie中没有凭据值，则从请求参数中获取凭据值。
 				if(StringUtils.isEmpty(value)){
+					LOGGER.info("the KI4SO_SERVER_EC value is: "+value);
 					value = request.getParameter(WebConstants.KI4SO_SERVER_ENCRYPTED_CREDENTIAL_COOKIE_KEY);
 				}
 				//最终如果加密凭据有值，则直接返回凭据对象。
