@@ -73,14 +73,8 @@ public class KeyServiceImplTest {
 		//读取文件。
 		Assert.assertNull(keyServiceImpl.readDataFromFile());
 	}
-	/**
-	 * 	测试判断公钥文件是否存在
-	 *  默认classpath;指定盘符下
-	 */
-	@Test
-	public void testCheckKeyFileExistByToken(){
-		Assert.assertEquals(true, keyService.checkKeyFileExistByToken("1001"));
-	}
+	
+	
 	/**
 	 * 	测试生成公钥文件
 	 */
