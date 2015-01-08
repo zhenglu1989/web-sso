@@ -66,7 +66,7 @@ public class LogoutAppServiceImpl implements LogoutAppService {
 		// 通过userID获取状态信息
 		List<UserLoggedStatus> list = userLoggedStatusStore.findUserLoggedStatus(userId);
 		HttpPost httpPost;
-		String url = "loginOut.do";
+		String url = "logout.do";
 		for (int i = 0; i < list.size(); i++) {
 			UserLoggedStatus status = list.get(i);
 			// 通过状态信息获取appID
