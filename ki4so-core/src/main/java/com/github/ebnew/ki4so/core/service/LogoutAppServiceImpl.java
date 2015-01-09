@@ -85,10 +85,8 @@ public class LogoutAppServiceImpl implements LogoutAppService {
 	@Override
 	public void logoutApp(final String userId) {
 		// 通过userID获取状态信息
-<<<<<<< HEAD
-//		List<UserLoggedStatus> list = findUserLoggedStatus(userId);
 		
-		String url = "loginOut.do";
+		String url = "logout.do";
 		RequestConfig requestConfig = RequestConfig.custom()  
                 .setSocketTimeout(3000).setConnectTimeout(3000).build();  
         CloseableHttpAsyncClient httpclient = HttpAsyncClients.custom()  
@@ -151,19 +149,6 @@ public class LogoutAppServiceImpl implements LogoutAppService {
 			        	latch.countDown();  
 			        }  
 			    });
-=======
-		List<UserLoggedStatus> list = userLoggedStatusStore.findUserLoggedStatus(userId);
-		HttpPost httpPost;
-		String url = "logout.do";
-		for (int i = 0; i < list.size(); i++) {
-			UserLoggedStatus status = list.get(i);
-			// 通过状态信息获取appID
-			String appId = status.getAppId();
-			// 通过appId获取app信息
-			App app = appService.findAppById(appId);
-			if (app == null) {
-				continue;
->>>>>>> 41a86918dce05348c27164b7059f49766d916167
 			}
 			//latch.await();
 		} catch (Exception e) {
