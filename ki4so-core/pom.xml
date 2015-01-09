@@ -50,7 +50,7 @@
 		<groupId>org.springframework</groupId>
 		<artifactId>spring-test</artifactId>
 	</dependency>
-<<<<<<< HEAD
+
 	<dependency>
 	  <groupId>org.apache.httpcomponents</groupId>
 	  <artifactId>httpasyncclient</artifactId>
@@ -62,22 +62,18 @@
       <artifactId>httpclient</artifactId>
       <version>4.3.5</version>
 	</dependency>
-=======
->>>>>>> 41a86918dce05348c27164b7059f49766d916167
-	
+
 	<dependency>
 		<groupId>log4j</groupId>
 		<artifactId>log4j</artifactId>
 	</dependency>
-<<<<<<< HEAD
+
 	
 	<dependency>
 	  <groupId>commons-io</groupId>
 	  <artifactId>commons-io</artifactId>
 	  <version>2.4</version>
 	</dependency>
-=======
->>>>>>> 41a86918dce05348c27164b7059f49766d916167
 
   </dependencies>
 
