@@ -14,6 +14,7 @@ import com.github.ebnew.ki4so.core.exception.NoKi4soKeyException;
 import com.github.ebnew.ki4so.core.key.KeyService;
 import com.github.ebnew.ki4so.core.key.Ki4soKey;
 import com.github.ebnew.ki4so.core.model.EncryCredentialInfo;
+import com.github.ebnew.ki4so.core.service.LogoutAppService;
 import com.github.ebnew.ki4so.web.utils.WebConstants;
 
 /**
@@ -42,10 +43,10 @@ public class DefaultAuthenticationPostHandler implements
 	
 	private AppService appService;
 	
-	private UserLoggedStatusStore userLoggedStatusStore;
+	private LogoutAppService  logoutAppService;
 
-	public void setUserLoggedStatusStore(UserLoggedStatusStore userLoggedStatusStore) {
-		this.userLoggedStatusStore = userLoggedStatusStore;
+	public void setLogoutAppService(LogoutAppService logoutAppService) {
+		this.logoutAppService = logoutAppService;
 	}
 
 	public AppService getAppService() {
@@ -138,7 +139,7 @@ public class DefaultAuthenticationPostHandler implements
 					
 					//更新用户登录状态到存储器中。
 					UserLoggedStatus status = new UserLoggedStatus(principal.getId(), clientApp.getAppId(), authentication.getAuthenticatedDate());
-					userLoggedStatusStore.addUserLoggedStatus(status);
+					logoutAppService.addUserLoggedStatus(status);
 				}
 			}
 		}

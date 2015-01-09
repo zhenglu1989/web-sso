@@ -21,17 +21,20 @@ public class Ki4soServiceImpl implements Ki4soService {
 
 	private AuthenticationManager authenticationManager;
 	
-	private UserLoggedStatusStore userLoggedStatusStore;
 	
 	private AppService appService;
+	
+	private LogoutAppService  logoutAppService;
 
 	public void setAppService(AppService appService) {
 		this.appService = appService;
 	}
 
-	public void setUserLoggedStatusStore(UserLoggedStatusStore userLoggedStatusStore) {
-		this.userLoggedStatusStore = userLoggedStatusStore;
+
+	public void setLogoutAppService(LogoutAppService logoutAppService) {
+		this.logoutAppService = logoutAppService;
 	}
+
 
 	public void setAuthenticationManager(AuthenticationManager authenticationManager) {
 		this.authenticationManager = authenticationManager;
@@ -76,7 +79,7 @@ public class Ki4soServiceImpl implements Ki4soService {
 			Authentication authentication = authenticationManager.authenticate(credential);
 			//清除用户登录状态。
 			if(authentication!=null && authentication.getPrincipal()!=null){
-				this.userLoggedStatusStore.clearUpUserLoggedStatus(authentication.getPrincipal().getId());
+				this.logoutAppService.clearUpUserLoggedStatus(authentication.getPrincipal().getId());
 			}
 		}catch (InvalidCredentialException e) {
 		}
@@ -92,7 +95,7 @@ public class Ki4soServiceImpl implements Ki4soService {
 			//对凭据做一次认证。
 			Authentication authentication = authenticationManager.authenticate(credential);
 			if(authentication!=null && authentication.getPrincipal()!=null){
-				List<UserLoggedStatus> list = this.userLoggedStatusStore.findUserLoggedStatus(authentication.getPrincipal().getId());
+				List<UserLoggedStatus> list = this.logoutAppService.findUserLoggedStatus(authentication.getPrincipal().getId());
 				//批量查询对应的应用信息。
 				if(list!=null&& list.size()>0){
 					for(UserLoggedStatus status:list){

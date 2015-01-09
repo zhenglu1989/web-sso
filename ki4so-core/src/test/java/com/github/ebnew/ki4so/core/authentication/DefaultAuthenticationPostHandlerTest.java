@@ -119,7 +119,7 @@ public class DefaultAuthenticationPostHandlerTest {
         this.handler.setEncryCredentialManager(encryCredentialManager);
         
         UserLoggedStatusStore userLoggedStatusStore = Mockito.mock(UserLoggedStatusStore.class);
-        this.handler.setUserLoggedStatusStore(userLoggedStatusStore);
+//        this.handler.setUserLoggedStatusStore(userLoggedStatusStore);
         
         authentication = this.handler.postAuthentication(credential, principal);
         assertNotNull(authentication);

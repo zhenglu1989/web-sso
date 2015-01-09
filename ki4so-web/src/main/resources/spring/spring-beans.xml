@@ -24,14 +24,13 @@
 	
 	<bean id="encryCredentialManager" class="com.github.ebnew.ki4so.core.authentication.EncryCredentialManagerImpl" autowire="byName"></bean>
 
-	<!-- 默认的用户登录状态存储器服务。 -->
+	<!-- 默认的用户登录状态存储器服务。
 	<bean id="userLoggedStatusStore" class="com.github.ebnew.ki4so.core.authentication.status.DefaultUserLoggedStatusStore">
 		<property name="logoutAppService" ref="logoutAppService"></property>  
-	</bean>
+	</bean> -->
 	<!-- 登出app服务。 -->
 	<bean id="logoutAppService" class="com.github.ebnew.ki4so.core.service.LogoutAppServiceImpl">
 		<property name="appService" ref="appService"></property>  
-		<property name="userLoggedStatusStore" ref="userLoggedStatusStore"></property>  
 	</bean>
 	
 	<!-- 认证管理器对象。 -->
