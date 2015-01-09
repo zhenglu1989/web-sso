@@ -2,6 +2,8 @@ package com.github.ebnew.ki4so.core.authentication;
 
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.github.ebnew.ki4so.core.authentication.handlers.AuthenticationHandler;
 import com.github.ebnew.ki4so.core.authentication.resolvers.CredentialToPrincipalResolver;
 import com.github.ebnew.ki4so.core.exception.AuthenticationException;
@@ -17,6 +19,8 @@ import com.github.ebnew.ki4so.core.exception.UnsupportedCredentialsException;
  * @updated 30-五月-2013 21:33:16
  */
 public class AuthenticationManagerImpl implements AuthenticationManager {
+	
+	private static final Logger logger = Logger.getLogger(AuthenticationManagerImpl.class);
 	
 	/**
 	 * 认证处理器集合，使用多个认证处理器对凭证逐一校验，只要有一个通过即可。
@@ -66,6 +70,7 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
         boolean authenticated = false;
 		//若凭据为空，则跑出异常。
 		if(credential==null){
+			logger.info("credential is null");
 			throw new EmptyCredentialException();
 		}
 		
@@ -85,6 +90,7 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 							break;
 						}
 					}catch (AuthenticationException e) {
+						logger.error("authenticate error", e);
 						unAuthSupportedHandlerException = e;
 					}
 					
@@ -120,10 +126,12 @@ public class AuthenticationManagerImpl implements AuthenticationManager {
 		}
 		//未找到支持的用户凭据解析器。
 		if(!foundSupported){
+			logger.error("not found any supported credentials resolvers");
 			throw new UnsupportedCredentialsException();
 		}
 		//若认证后处理器对象为空，则抛出异常。
 		if(authenticationPostHandler==null){
+			logger.error("No Authentication Post HandlerException");
 			throw new NoAuthenticationPostHandlerException();
 		}
 		

@@ -3,6 +3,8 @@ package com.github.ebnew.ki4so.core.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.Logger;
+
 import com.github.ebnew.ki4so.core.app.App;
 import com.github.ebnew.ki4so.core.app.AppService;
 import com.github.ebnew.ki4so.core.authentication.Authentication;
@@ -18,6 +20,8 @@ import com.github.ebnew.ki4so.core.exception.InvalidCredentialException;
  * @created 30-五月-2013 21:32:24
  */
 public class Ki4soServiceImpl implements Ki4soService {
+	
+	private Logger logger = Logger.getLogger(Ki4soServiceImpl.class);
 
 	private AuthenticationManager authenticationManager;
 	
@@ -65,6 +69,7 @@ public class Ki4soServiceImpl implements Ki4soService {
 			//设置异常代码和异常信息键值。
 			loginResult.setCode(e.getCode());
 			loginResult.setMsgKey(e.getMsgKey());
+			logger.error("login failed!", e);
 		}
 		return loginResult;
 	}
@@ -73,6 +78,7 @@ public class Ki4soServiceImpl implements Ki4soService {
 	public void logout(Credential credential) {
 		try{
 			if(credential==null){
+				logger.info("the credential is null");
 				return;
 			}
 			//对凭据做一次认证。
@@ -82,6 +88,7 @@ public class Ki4soServiceImpl implements Ki4soService {
 				this.logoutAppService.clearUpUserLoggedStatus(authentication.getPrincipal().getId());
 			}
 		}catch (InvalidCredentialException e) {
+			logger.error("logout error", e);
 		}
 	}
 
