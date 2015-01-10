@@ -15,7 +15,7 @@
 </p>
 
 <p>
-<a href="logoutByUserId.do">统一注销</a>
+<a href="localLogout.do">统一注销</a>
 </p>
 </body>
 </html>

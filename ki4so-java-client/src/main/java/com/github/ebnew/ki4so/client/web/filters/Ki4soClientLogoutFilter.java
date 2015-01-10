@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.log4j.Logger;
 
-import com.github.ebnew.ki4so.client.handler.AppClientLogoutHandler;
 import com.github.ebnew.ki4so.client.session.SessionStorage;
 import com.github.ebnew.ki4so.common.utils.StringUtils;
 
@@ -25,16 +24,6 @@ import com.github.ebnew.ki4so.common.utils.StringUtils;
  */
 public class Ki4soClientLogoutFilter extends BaseClientFilter{
 	
-	/**
-	 * 登录本应用处理器类，由此类进行构造一个对象。
-	 */
-	protected String appClientLogoutHandlerClass = "com.github.ebnew.ki4so.app.custom.Ki4soAppClientLogoutHandlerImpl";
-
-	/**
-	 * 登录本应用的处理器。
-	 */
-	protected AppClientLogoutHandler appClientLogoutHandler;
-	
 	private static  Logger logger = Logger.getLogger(Ki4soClientLogoutFilter.class.getName());
 
 	private static final String SESSIONID_IS_NULL="send sessionId is null";
@@ -43,15 +32,7 @@ public class Ki4soClientLogoutFilter extends BaseClientFilter{
 	
 	@Override
 	public void doInit(FilterConfig filterConfig) throws ServletException {
-		appClientLogoutHandlerClass = getInitParameterWithDefalutValue(filterConfig, "appClientLoginHandlerClass", appClientLogoutHandlerClass);
-		//构造登录本应用的处理器对象。
-		if(!StringUtils.isEmpty(appClientLogoutHandlerClass)){
-			try{
-				this.appClientLogoutHandler = (AppClientLogoutHandler)Class.forName(appClientLogoutHandlerClass).newInstance();
-			}catch (Exception e) {
-				// TODO: handle exception
-			}
-		}
+		
 	}
 
 	@Override
