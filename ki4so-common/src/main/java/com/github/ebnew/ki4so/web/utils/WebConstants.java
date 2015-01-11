@@ -26,6 +26,10 @@ public interface WebConstants {
 	 * 目的服务地址存储在session中的key值。
 	 */
 	public static final String KI4SO_SERVICE_KEY_IN_SESSION = "KI4SO_SERVICE_KEY";
-
+	
+	/**
+	 * 用户标识的参数名。
+	 */
+	public static final String USER_ID_PARAM_NAME = "userId";
 
 }

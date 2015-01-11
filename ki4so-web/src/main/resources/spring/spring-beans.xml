@@ -13,25 +13,23 @@
 		</property>
 	</bean>
 	
+	<bean id="appService" class="com.github.ebnew.ki4so.core.app.AppServiceImpl"></bean>
+	
+	<bean id="keyService" class="com.github.ebnew.ki4so.core.key.KeyServiceImpl"></bean>
+	
+	<!-- 默认的用户登录状态存储器服务。 -->
+	<bean id="userLoggedStatusStore" class="com.github.ebnew.ki4so.core.authentication.status.DefaultUserLoggedStatusStore"></bean>
+	
+	<!-- 登出app服务。 -->
+	<bean id="logoutAppService" class="com.github.ebnew.ki4so.core.service.LogoutAppServiceImpl" autowire="byName"></bean>
+	
+	
 	<!-- ki4so中心接口服务 -->
 	<bean id="ki4soService" class="com.github.ebnew.ki4so.core.service.Ki4soServiceImpl" autowire="byName"></bean>
 	
 	<bean id="loginResultToView" class="com.github.ebnew.ki4so.web.action.DefaultLoginResultToView"></bean>
 	
-	<bean id="appService" class="com.github.ebnew.ki4so.core.app.AppServiceImpl"></bean>
-	
-	<bean id="keyService" class="com.github.ebnew.ki4so.core.key.KeyServiceImpl"></bean>
-	
 	<bean id="encryCredentialManager" class="com.github.ebnew.ki4so.core.authentication.EncryCredentialManagerImpl" autowire="byName"></bean>
-
-	<!-- 默认的用户登录状态存储器服务。 -->
-	<bean id="userLoggedStatusStore" class="com.github.ebnew.ki4so.core.authentication.status.DefaultUserLoggedStatusStore"></bean>
-	
-	<!-- 登出app服务。 -->
-	<bean id="logoutAppService" class="com.github.ebnew.ki4so.core.service.LogoutAppServiceImpl">
-		<property name="appService" ref="appService"></property>  
-	</bean>
-	
 
 	<!-- 认证管理器对象。 -->
 	<bean id="authenticationManager" class="com.github.ebnew.ki4so.core.authentication.AuthenticationManagerImpl">

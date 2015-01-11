@@ -1,10 +1,6 @@
 package com.github.ebnew.ki4so.web.action;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpSession;
@@ -18,11 +14,9 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockHttpServletRequest;
 import org.springframework.mock.web.MockHttpServletResponse;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.view.RedirectView;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.github.ebnew.ki4so.core.app.App;
-import com.github.ebnew.ki4so.core.authentication.Credential;
 import com.github.ebnew.ki4so.core.service.Ki4soService;
 import com.github.ebnew.ki4so.web.utils.WebConstants;
 
@@ -46,53 +40,7 @@ public class LogoutActionTest {
 	}
 	
 	@Test
-	public void testGetAppList() throws UnsupportedEncodingException {
-		//测试准备。
-		MockHttpServletRequest request = new MockHttpServletRequest();
-		MockHttpServletResponse response = new MockHttpServletResponse();
-		CredentialResolver credentialResolver = Mockito.mock(CredentialResolver.class);
-		logoutAction.setCredentialResolver(credentialResolver);
-		
-		Ki4soService ki4soService = Mockito.mock(Ki4soService.class);
-		logoutAction.setKi4soService(ki4soService);
-		
-		Credential credential = Mockito.mock(Credential.class);
-		
-		//设置预期结果。
-		Mockito.when(credentialResolver.resolveCredential(request)).thenReturn(credential);
-		List<App> list = new ArrayList<App>();
-		App app = new App();
-		app.setAppId("1000");
-		app.setAppName("测试应用程序1");
-		app.setHost("app.com");
-		app.setLogoutUrl("http://app.com/logout.do");
-		list.add(app);
-		Mockito.when(ki4soService.getAppList(credential)).thenReturn(list);
-		
-		//执行查询。
-		logoutAction.getAppList(request, response);
-		
-		//检查结果。
-		Assert.assertEquals("application/x-javascript", response.getContentType());
-		Assert.assertEquals("UTF-8", response.getCharacterEncoding());
-		//检查输出的jsonp串是否正确。
-		String content = response.getContentAsString();
-		content = content.trim();
-		Assert.assertTrue(content.startsWith("fetchAppList("));
-		Assert.assertTrue(content.endsWith(");"));
-		String json = content.replaceFirst("fetchAppList\\(", "");
-		json = json.replaceFirst("\\);", "");
-		JSONArray data = (JSONArray)JSON.parse(json);
-		Assert.assertEquals(1, data.size());
-		@SuppressWarnings("unchecked")
-		Map<String, Object> map = (Map<String, Object>)data.get(0);
-		Assert.assertEquals("1000", map.get("appId"));
-		
-	}
-	
-
-	@Test
-	public void testLogout() throws IOException {
+	public void testLogoutWithoutCredential() throws IOException {
 		MockHttpServletRequest request = new MockHttpServletRequest();
 		MockHttpServletResponse response = new MockHttpServletResponse();
 		HttpSession session = request.getSession();
@@ -102,17 +50,52 @@ public class LogoutActionTest {
 		Ki4soService ki4soService = Mockito.mock(Ki4soService.class);
 		logoutAction.setKi4soService(ki4soService);
 		
-		//测试没有cookie的情况。
-		logoutAction.logout(request, response,session);
+		//测试没有cookie的情况。即要登出的凭据不存在的情况。则返回默认的登出成功页面。
+		ModelAndView mv = logoutAction.logout(request, response, session);
 		Assert.assertEquals(0, response.getCookies().length);
+		Assert.assertEquals("logoutSucess", mv.getViewName());
+	}
+	
+	@Test
+	public void testLogoutWithCredentialButNoService() throws IOException {
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		HttpSession session = request.getSession();
+		CredentialResolver credentialResolver = Mockito.mock(CredentialResolver.class);
+		logoutAction.setCredentialResolver(credentialResolver);
+		Ki4soService ki4soService = Mockito.mock(Ki4soService.class);
+		logoutAction.setKi4soService(ki4soService);
 		
-		//测试存在cookie，登出后要清除cookie值。
-		request = new MockHttpServletRequest();
-		response = new MockHttpServletResponse();
+		//测试存在cookie，登出后要清除cookie值，但是service参数的值是null的情况。
 		request.setCookies(new Cookie(WebConstants.KI4SO_SERVER_ENCRYPTED_CREDENTIAL_COOKIE_KEY, "dddsd"));
-		logoutAction.logout(request, response,session);
+		ModelAndView mv = logoutAction.logout(request, response,session);
 		Assert.assertEquals(1, response.getCookies().length);
 		Assert.assertEquals(0, response.getCookies()[0].getMaxAge());
+		Assert.assertEquals("logoutSucess", mv.getViewName());
+	}
+	
+	
+	@Test
+	public void testLogoutWithCredentialAndService() throws IOException {
+		String servce  = "http://app.com/logoutSucess.do";
+		
+		MockHttpServletRequest request = new MockHttpServletRequest();
+		request.setParameter(WebConstants.SERVICE_PARAM_NAME, servce);
+		MockHttpServletResponse response = new MockHttpServletResponse();
+		HttpSession session = request.getSession();
+		CredentialResolver credentialResolver = Mockito.mock(CredentialResolver.class);
+		logoutAction.setCredentialResolver(credentialResolver);
+		Ki4soService ki4soService = Mockito.mock(Ki4soService.class);
+		logoutAction.setKi4soService(ki4soService);
+		
+		//测试存在cookie，登出后要清除cookie值，但是service参数的值是null的情况。
+		request.setCookies(new Cookie(WebConstants.KI4SO_SERVER_ENCRYPTED_CREDENTIAL_COOKIE_KEY, "dddsd"));
+		
+		ModelAndView mv = logoutAction.logout(request, response,session);
+		Assert.assertEquals(1, response.getCookies().length);
+		Assert.assertEquals(0, response.getCookies()[0].getMaxAge());
+		RedirectView view = (RedirectView) mv.getView();
+		Assert.assertEquals(servce, view.getUrl());
 	}
 
 }

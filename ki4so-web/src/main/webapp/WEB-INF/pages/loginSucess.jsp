@@ -18,7 +18,7 @@
 认证时间：${authentication.authenticatedDate}
 </p>
 <p>
-<a href="javascript:logout();">统一注销</a>&nbsp;&nbsp;&nbsp;
+<a href="logout.do">统一登出</a>&nbsp;&nbsp;&nbsp;
 <a href="login.do">返回登录</a>
 </p>
 </body>

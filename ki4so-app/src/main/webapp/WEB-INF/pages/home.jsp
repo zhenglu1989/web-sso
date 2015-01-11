@@ -15,7 +15,7 @@
 </p>
 
 <p>
-<a href="localLogout.do">统一注销</a>
+<a href="${ki4so_server_logout_url}?service=http://localhost:8080/ki4so-app/index.jsp">统一登出</a>
 </p>
 </body>
 </html>

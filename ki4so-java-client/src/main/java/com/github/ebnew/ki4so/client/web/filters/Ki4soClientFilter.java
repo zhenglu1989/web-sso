@@ -41,6 +41,10 @@ public class Ki4soClientFilter extends BaseClientFilter {
 	 */
 	public static final String USER_STATE_IN_SESSION_KEY = "ki4so_client_user_info_session_key";
 	
+	/**
+	 * 将ki4so服务器登出地址设置到request的属性中。
+	 */
+	public static final String KI4SO_SERVER_LOGOUT_URL = "ki4so_server_logout_url";
 	
 	
 	/**
@@ -52,6 +56,11 @@ public class Ki4soClientFilter extends BaseClientFilter {
 	 * ki4so服务器获取应用秘钥信息的URL地址。
 	 */
 	protected String ki4soServerFetchKeyUrl = ki4soServerHost+"fetchKey.do";
+	
+	/**
+	 * ki4so服务器登出URL地址。
+	 */
+	protected String ki4soServerLogoutUrl = ki4soServerHost+"logout.do";
 	
 	/**
 	 * 本应用在ki4so服务器上的应用ID值。
@@ -89,6 +98,7 @@ public class Ki4soClientFilter extends BaseClientFilter {
 	public void doInit(FilterConfig filterConfig) throws ServletException {
 		ki4soClientAppId = getInitParameterWithDefalutValue(filterConfig, "ki4soClientAppId", ki4soClientAppId);
 		ki4soServerLoginUrl = getInitParameterWithDefalutValue(filterConfig, "ki4soServerLoginUrl", ki4soServerHost+"login.do");;
+		ki4soServerLogoutUrl = getInitParameterWithDefalutValue(filterConfig, "ki4soServerLogoutUrl", ki4soServerHost+"logout.do");;
 		ki4soServerFetchKeyUrl = getInitParameterWithDefalutValue(filterConfig, "ki4soServerFetchKeyUrl", ki4soServerHost+"fetchKey.do");
 		appClientLoginHandlerClass = getInitParameterWithDefalutValue(filterConfig, "appClientLoginHandlerClass", appClientLoginHandlerClass);
 		//构造key服务等相关对象。
@@ -114,6 +124,7 @@ public class Ki4soClientFilter extends BaseClientFilter {
 		HttpServletRequest servletRequest = (HttpServletRequest)request;
 		HttpSession session = servletRequest.getSession();
 		try{
+			servletRequest.setAttribute(KI4SO_SERVER_LOGOUT_URL, ki4soServerLogoutUrl);
 			//本地应用未登录。
 			if(session.getAttribute(USER_STATE_IN_SESSION_KEY)==null){
 				//查找参数中是否存在ki4so_client_ec值，若没有则重定向到登录页面。

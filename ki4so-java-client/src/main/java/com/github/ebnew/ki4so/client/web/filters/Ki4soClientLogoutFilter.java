@@ -26,9 +26,9 @@ public class Ki4soClientLogoutFilter extends BaseClientFilter{
 	
 	private static  Logger logger = Logger.getLogger(Ki4soClientLogoutFilter.class.getName());
 
-	private static final String SESSIONID_IS_NULL="send sessionId is null";
+	private static final String SESSIONID_IS_NULL="send userId is null";
 	
-	private static final String SESSIONID_IS_NOT_CONTATINS ="send sessionId is not be included for Client ";
+	private static final String SESSIONID_IS_NOT_CONTATINS ="send userId is not be included for Client ";
 	
 	@Override
 	public void doInit(FilterConfig filterConfig) throws ServletException {
@@ -39,18 +39,18 @@ public class Ki4soClientLogoutFilter extends BaseClientFilter{
 	public void doFilter(ServletRequest request, ServletResponse response,
 			FilterChain chain) throws IOException, ServletException {
 		HttpServletResponse servletResponse = (HttpServletResponse)response;
-		String sessionId = request.getParameter("userId");
-		if(StringUtils.isEmpty(sessionId)){
+		String userId = request.getParameter("userId");
+		if(StringUtils.isEmpty(userId)){
 			logger.warn(SESSIONID_IS_NULL);
 			sendError(servletResponse,SESSIONID_IS_NULL);
 			return;
 		}
-		if(!SessionStorage.containsKey(sessionId)){
+		if(!SessionStorage.containsKey(userId)){
 			logger.warn(SESSIONID_IS_NOT_CONTATINS);
 			sendError(servletResponse,SESSIONID_IS_NOT_CONTATINS);
 			return;
 		}
-		HttpSession session = SessionStorage.get(sessionId);
+		HttpSession session = SessionStorage.get(userId);
 		try{
 			//本地应用已经登录，则进行登出处理。
 			if(session.getAttribute(Ki4soClientFilter.USER_STATE_IN_SESSION_KEY)!=null){
@@ -59,7 +59,7 @@ public class Ki4soClientLogoutFilter extends BaseClientFilter{
 				//将session设置过期
 				session.setMaxInactiveInterval(0);
 				//移除session信息
-				SessionStorage.remove(sessionId);
+				SessionStorage.remove(userId);
 			}
 			//响应登录结果。
 			sendResponse(servletResponse);
