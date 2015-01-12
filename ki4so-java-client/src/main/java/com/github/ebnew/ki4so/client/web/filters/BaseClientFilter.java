@@ -5,9 +5,8 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 import com.github.ebnew.ki4so.common.utils.StringUtils;
-import com.github.ebnew.ki4so.web.utils.WebConstants;
 
 /**
  * 公共基础的客户端过滤器类，定义了一些公共的方法。
@@ -54,19 +53,6 @@ public abstract class BaseClientFilter implements Filter{
 		return value;
 	}
 	
-	/**
-	 * 删除cookie中的异常信息。
-	 * @param ec EC值。
-	 * @param response Http响应对象。
-	 */
-	protected void removeCookeEC(HttpServletRequest request, HttpServletResponse response){
-		Cookie cookie = getCookie(request, WebConstants.KI4SO_CLIENT_ENCRYPTED_CREDENTIAL_COOKIE_KEY);
-		if(cookie!=null){
-			//设置过期时间为立即。
-			cookie.setMaxAge(0);
-			response.addCookie(cookie);
-		}
-	}
 	
 	/**
 	 * Retrieve the first cookie with the given name. Note that multiple

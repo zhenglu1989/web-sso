@@ -10,8 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 
-import org.junit.Test;
-
 import com.github.ebnew.ki4so.client.key.DefaultKeyServiceImpl;
 import com.github.ebnew.ki4so.common.utils.StringUtils;
 import com.github.ebnew.ki4so.core.key.KeyService;

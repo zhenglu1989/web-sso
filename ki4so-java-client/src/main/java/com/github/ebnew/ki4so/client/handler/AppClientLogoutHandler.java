@@ -14,8 +14,9 @@ public interface AppClientLogoutHandler {
 	 * 登出本应用。
 	 * @param request http请求对象。
 	 * @param response http响应对象。
+	 * @param userId 用户需要登出的用户Id值。
 	 */
-	public void logoutClient(HttpServletRequest request, HttpServletResponse response);
+	public void logoutClient(HttpServletRequest request, HttpServletResponse response, String userId);
 
 
 }

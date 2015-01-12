@@ -1,12 +1,12 @@
 package com.github.ebnew.ki4so.app.custom;
 
-import java.util.logging.Logger;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
+
 import com.github.ebnew.ki4so.client.handler.AppClientLogoutHandler;
-import com.github.ebnew.ki4so.core.model.EncryCredentialInfo;
+import com.github.ebnew.ki4so.common.utils.StringUtils;
 
 public class Ki4soAppClientLogoutHandlerImpl implements AppClientLogoutHandler {
 	
@@ -14,13 +14,11 @@ public class Ki4soAppClientLogoutHandlerImpl implements AppClientLogoutHandler {
 
 	@Override
 	public void logoutClient(HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response, String userId) {
 		//若已经登录，则作相关处理。
-		if(request.getSession().getAttribute(Ki4soAppClientLoginHandlerImpl.USER_KEY)!=null){
-			EncryCredentialInfo encryCredentialInfo = (EncryCredentialInfo)request.getSession().getAttribute(Ki4soAppClientLoginHandlerImpl.USER_KEY);
+		if(!StringUtils.isEmpty(userId)){
 			//remove the exception
-			request.getSession().setAttribute(Ki4soAppClientLoginHandlerImpl.USER_KEY, null);
-			logger.info("the user id is "+encryCredentialInfo.getUserId() +" has logined out the app");
+			logger.info("the user id is userId has logined out the app");
 		}
 	}
 
