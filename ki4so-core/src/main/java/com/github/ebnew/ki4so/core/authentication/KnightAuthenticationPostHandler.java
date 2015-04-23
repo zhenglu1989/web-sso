@@ -6,10 +6,27 @@ package com.github.ebnew.ki4so.core.authentication;
  * @author zhenglu
  * @since 15/4/23
  */
-public class KnightAuthenticationPostHandler {
+public interface KnightAuthenticationPostHandler {
 
 
+    /**
+     * 服务本身的加密凭据信息存储在验证结果对象 服务端attrbutes动态属性key
+     */
     public static final String KNIGHT_SERVER_EC_KEY = "knight_ser_ec_key";
 
+    /**
+     * 服务本身的加密凭据信息存储在验证结果对象 客户端attrbutes动态属性key
+     */
     public static final String KNIGHT_CLIENT_EC_KEY = "knight_client_ec_key";
+
+    /**
+     *  认证后的处理方法，将用户的凭据和主体转换为一个认证的结果对象
+     * @param credential
+     * @param user
+     * @return
+     */
+
+    public KnightAuthentication postAuthentication(KnightCredential credential,KnightUser user);
+
+
 }
