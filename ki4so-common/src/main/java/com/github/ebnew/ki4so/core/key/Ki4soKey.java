@@ -5,6 +5,7 @@ import java.security.Key;
 
 import com.github.ebnew.ki4so.common.DESCoder;
 
+@Deprecated
 public class Ki4soKey implements Serializable{
 
 	/**

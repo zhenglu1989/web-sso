@@ -18,7 +18,7 @@ import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESedeKeySpec;
 
-
+@Deprecated
 public class DESCoder {
 	
 	/**

@@ -13,6 +13,7 @@ package com.github.ebnew.ki4so.common;
 
 import java.io.IOException;
 
+@Deprecated
 public class Base64Coder {
 	  /**  
      * 编码  
