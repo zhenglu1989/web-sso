@@ -8,6 +8,7 @@ import java.util.Map;
  * @version 1.0
  * @updated 30-五月-2013 21:33:18
  */
+@Deprecated
 public interface Principal {
 
 	public Map<String, Object> getAttributes();

@@ -8,6 +8,7 @@ import java.util.Map;
  * @author Administrator
  * @version 1.0
  */
+@Deprecated
 public interface Authentication {
 
 	public Map<String, Object> getAttributes();

@@ -2,7 +2,7 @@ package com.github.ebnew.ki4so.core.authentication;
 
 import java.util.Date;
 import java.util.Map;
-
+@Deprecated
 public class AuthenticationImpl implements Authentication {
 	
 	private Date authenticatedDate;

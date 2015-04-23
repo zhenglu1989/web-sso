@@ -7,6 +7,7 @@ import java.util.Map;
  * @author Administrator
  *
  */
+@Deprecated
 public class DefaultUserPrincipal extends AbstractPrincipal {
 
 	public DefaultUserPrincipal() {

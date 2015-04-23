@@ -7,6 +7,7 @@ import com.github.ebnew.ki4so.core.exception.InvalidCredentialException;
  * @author Administrator
  *
  */
+@Deprecated
 public interface AuthenticationManager {
 	
 	/**

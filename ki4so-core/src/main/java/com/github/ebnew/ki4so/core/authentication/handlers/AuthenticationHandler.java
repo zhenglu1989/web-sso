@@ -9,6 +9,7 @@ import com.github.ebnew.ki4so.core.exception.AuthenticationException;
  * @version 1.0
  * @created 08-六月-2013 9:56:10
  */
+@Deprecated
 public interface AuthenticationHandler {
 
 	/**
