@@ -5,7 +5,7 @@ package com.github.ebnew.ki4so.core.key;
  * @author Huiqiang lai
  *
  */
-
+@Deprecated
 public interface KeyService {
 	
 	/**
