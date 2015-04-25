@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
  * @author Administrator
  *
  */
+@Deprecated
 public abstract class FileSystemDao {
 	
 	private static Logger logger = Logger.getLogger(FileSystemDao.class.getName());

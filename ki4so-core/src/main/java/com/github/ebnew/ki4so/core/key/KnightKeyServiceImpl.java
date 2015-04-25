@@ -5,7 +5,6 @@ import com.alibaba.fastjson.TypeReference;
 import com.github.ebnew.ki4so.common.utils.StringUtils;
 import com.github.ebnew.ki4so.core.dao.fs.KnightFileSystemDao;
 import org.apache.log4j.Logger;
-import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
 import javax.crypto.Cipher;
@@ -193,6 +192,7 @@ public class KnightKeyServiceImpl extends KnightFileSystemDao implements KnightK
              privateKey  = keyPair.getPrivate();
 
             outputStream = new ObjectOutputStream(new FileOutputStream(PUBLIC_KEY_FILE));
+            /** 用对象流将公钥写入文件 **/
             outputStream.writeObject(publicKey);
 
 
@@ -201,6 +201,7 @@ public class KnightKeyServiceImpl extends KnightFileSystemDao implements KnightK
         }catch (Exception e){
             e.printStackTrace();
         }finally {
+            /** 清空buffer缓存，关闭文件输出流**/
             if(outputStream != null){
                 try {
                     outputStream.close();

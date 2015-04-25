@@ -32,6 +32,7 @@ import com.github.ebnew.ki4so.core.exception.ParamsNotInitiatedCorrectly;
  * @author Administrator
  *
  */
+@Deprecated
 public class KeyServiceImpl extends FileSystemDao implements KeyService {
 	
 	private static Logger logger = Logger.getLogger(KeyServiceImpl.class.getName());

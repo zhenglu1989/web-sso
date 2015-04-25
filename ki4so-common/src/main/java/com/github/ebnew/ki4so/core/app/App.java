@@ -6,6 +6,7 @@ import java.io.Serializable;
  * @author Administrator
  *
  */
+@Deprecated
 public class App implements Serializable {
 
 	/**
