@@ -12,7 +12,7 @@ import java.security.KeyPairGenerator;
 import java.security.SecureRandom;
 
 import javax.crypto.Cipher;
-
+@Deprecated
 public class RSASecurityUtil {
     /** 指定加密算法为RSA */
     private static final String ALGORITHM = "RSA";

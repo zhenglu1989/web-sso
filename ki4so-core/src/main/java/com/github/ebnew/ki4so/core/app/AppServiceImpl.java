@@ -19,6 +19,7 @@ import com.github.ebnew.ki4so.core.dao.fs.FileSystemDao;
  * @author burgess yang
  *
  */
+@Deprecated
 public class AppServiceImpl extends FileSystemDao implements AppService {
 	
 	private static Logger logger = Logger.getLogger(AppServiceImpl.class.getName());

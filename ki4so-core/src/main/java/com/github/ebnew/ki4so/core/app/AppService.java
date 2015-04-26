@@ -1,5 +1,5 @@
 package com.github.ebnew.ki4so.core.app;
-
+@Deprecated
 public interface AppService {
 	
 	/**

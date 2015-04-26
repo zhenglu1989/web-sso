@@ -13,9 +13,13 @@
 		</property>
 	</bean>
 	
-	<bean id="appService" class="com.github.ebnew.ki4so.core.app.AppServiceImpl"></bean>
+	<!--<bean id="appService" class="com.github.ebnew.ki4so.core.app.AppServiceImpl"></bean>-->
+
+    <bean id="knightAppService" class="com.github.ebnew.ki4so.core.app.KnightAppServiceImpl" init-method="init"></bean>
 	
-	<bean id="keyService" class="com.github.ebnew.ki4so.core.key.KeyServiceImpl"></bean>
+	<!--<bean id="keyService" class="com.github.ebnew.ki4so.core.key.KeyServiceImpl"></bean>-->
+
+    <bean id="knightKeyService" class="com.github.ebnew.ki4so.core.key.KnightKeyServiceImpl" init-method="init"></bean>
 	
 	<!-- 默认的用户登录状态存储器服务。 -->
 	<bean id="userLoggedStatusStore" class="com.github.ebnew.ki4so.core.authentication.status.DefaultUserLoggedStatusStore"></bean>
