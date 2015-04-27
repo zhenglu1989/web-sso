@@ -14,7 +14,7 @@ import java.security.SecureRandom;
  * @author zhenglu
  * @since 15/4/23
  */
-public class KnigntDECoder {
+public class KnightDECoder {
 
     /**
      *

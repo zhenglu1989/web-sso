@@ -7,6 +7,7 @@ import java.util.Map;
  * @author burgess yang
  *
  */
+@Deprecated
 public interface Parameter {
 	
 	/**

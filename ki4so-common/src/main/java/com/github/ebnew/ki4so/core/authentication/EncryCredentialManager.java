@@ -7,6 +7,7 @@ import com.github.ebnew.ki4so.core.model.EncryCredentialInfo;
  * @author burgess yang
  *
  */
+@Deprecated
 public interface EncryCredentialManager {
 
 	/**

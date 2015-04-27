@@ -7,6 +7,7 @@ import com.github.ebnew.ki4so.core.model.EncryCredentialInfo;
  * @author bugess yang
  *
  */
+@Deprecated
 public class EncryCredential extends AbstractParameter implements Credential{
 	
 	/**

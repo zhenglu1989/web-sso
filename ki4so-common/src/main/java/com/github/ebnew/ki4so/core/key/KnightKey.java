@@ -1,6 +1,9 @@
 package com.github.ebnew.ki4so.core.key;
 
+import com.github.ebnew.ki4so.common.KnightDECoder;
+
 import java.io.Serializable;
+import java.security.Key;
 
 /**
  * @author zhenglu
@@ -63,6 +66,19 @@ public class KnightKey implements Serializable {
         this.keyPath = keyPath;
     }
 
+
+    public Key toSecurityKey(){
+        try{
+            if(this.getValue() != null){
+                return KnightDECoder.initSecretKey(this.getValue());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        return null;
+
+    }
     @Override
     public String toString() {
         return "knight: [keyId=" + keyId + ", appId=" + appId + ", value="

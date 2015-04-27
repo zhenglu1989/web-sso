@@ -7,6 +7,7 @@ package com.github.ebnew.ki4so.core.authentication;
  * @author burgess yang
  *
  */
+@Deprecated
 public interface Credential {
 	
 	/**
