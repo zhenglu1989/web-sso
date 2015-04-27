@@ -32,7 +32,11 @@ public class KnightEncryCredentialManagerImpl implements KnightEncryCredentialMa
     }
 
     @Override
-    public KnightCredentialInfo decrypt(KnightEncryCredential credential) {
+    public KnightCredentialInfo decrypt(KnightEncryCredential encryCredential) {
+        if(encryCredential != null && !StringUtils.isEmpty(encryCredential.getCredential())){
+            String credential = encryCredential.getCredential();
+            return parseEncryCredentital(credential);
+        }
         return null;
     }
 
@@ -65,7 +69,21 @@ public class KnightEncryCredentialManagerImpl implements KnightEncryCredentialMa
     }
 
     @Override
-    public boolean checkEncryCredentialInfo(KnightEncryCredential credential) {
+    public boolean checkEncryCredentialInfo(KnightCredentialInfo credentialInfo) {
+        if(credentialInfo != null){
+            //无凭据对应的用户标识，则无效
+                if(!StringUtils.isEmpty(credentialInfo.getUserId())) {
+
+                    return false;
+                }
+              Date now = new Date();
+              if(credentialInfo.getExpireTime() != null){
+                 long data = credentialInfo.getExpireTime().getTime() - now.getTime();
+                  if(data > 0 ){
+                      return true;
+                  }
+              }
+            }
         return false;
     }
 

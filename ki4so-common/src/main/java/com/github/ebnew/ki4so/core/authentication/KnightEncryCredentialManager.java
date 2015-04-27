@@ -28,11 +28,11 @@ public interface KnightEncryCredentialManager {
 
     /**
      * 检查用户凭据信息的合法性，是否合法，是否过期 是否有效等
-     * @param credential
+     * @param credentialInfo
      * @return
      */
 
-    public boolean checkEncryCredentialInfo(KnightEncryCredential credential);
+    public boolean checkEncryCredentialInfo(KnightCredentialInfo credentialInfo);
 
 
 }
