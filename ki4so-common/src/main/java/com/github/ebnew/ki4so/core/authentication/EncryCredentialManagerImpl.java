@@ -17,6 +17,7 @@ import com.github.ebnew.ki4so.core.key.KeyService;
 import com.github.ebnew.ki4so.core.key.Ki4soKey;
 import com.github.ebnew.ki4so.core.model.EncryCredentialInfo;
 
+@Deprecated
 public class EncryCredentialManagerImpl implements EncryCredentialManager{
 	
 	private KeyService keyService;

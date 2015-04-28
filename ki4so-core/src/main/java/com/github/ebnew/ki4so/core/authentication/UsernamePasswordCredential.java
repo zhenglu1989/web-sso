@@ -5,6 +5,7 @@ package com.github.ebnew.ki4so.core.authentication;
  *
  * @author bugess yang
  */
+@Deprecated
 public class UsernamePasswordCredential extends AbstractParameter implements Credential {
 
     /**
