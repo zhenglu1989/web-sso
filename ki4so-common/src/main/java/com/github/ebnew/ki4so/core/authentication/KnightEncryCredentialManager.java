@@ -1,6 +1,6 @@
 package com.github.ebnew.ki4so.core.authentication;
 
-import com.github.ebnew.ki4so.core.app.KnightApp;
+
 import com.github.ebnew.ki4so.core.model.KnightCredentialInfo;
 
 /**
