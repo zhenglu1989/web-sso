@@ -53,7 +53,7 @@ public class LoginAction {
 	/**
 	 * 登录接口，该接口处理所有与登录有关的请求。 包括以下几种情况： 1.
 	 * 
-	 * @param model
+	 * @param
 	 * @return
 	 */
 	@RequestMapping("/login")
