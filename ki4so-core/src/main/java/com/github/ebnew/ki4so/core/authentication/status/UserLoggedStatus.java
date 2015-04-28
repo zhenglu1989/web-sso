@@ -8,6 +8,7 @@ import java.util.Date;
  * @author burgess yang
  *
  */
+@Deprecated
 public class UserLoggedStatus implements Serializable {
 
 	/**

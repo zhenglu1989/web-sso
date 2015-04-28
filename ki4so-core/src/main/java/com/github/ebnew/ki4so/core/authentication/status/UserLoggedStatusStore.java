@@ -7,6 +7,7 @@ import java.util.List;
  * @author burgess yang
  *
  */
+@Deprecated
 public interface UserLoggedStatusStore {
 	
 	/**
