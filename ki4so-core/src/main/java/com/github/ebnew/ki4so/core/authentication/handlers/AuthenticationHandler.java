@@ -1,6 +1,6 @@
 package com.github.ebnew.ki4so.core.authentication.handlers;
 
-import com.github.ebnew.ki4so.core.authentication.Credential;
+import com.github.ebnew.ki4so.core.authentication.KnightCredential;
 import com.github.ebnew.ki4so.core.exception.AuthenticationException;
 
 /**
@@ -17,9 +17,9 @@ public interface AuthenticationHandler {
 	 * 
 	 * @param credential 用户凭据
 	 * @return 是否认证通过。
-	 * @throws 若认证失败，则抛出合适的认证错误异常对象。
+	 * @throws  ，则抛出合适的认证错误异常对象。
 	 */
-	public boolean authenticate(Credential credential) throws AuthenticationException;
+	public boolean authenticate(KnightCredential credential) throws AuthenticationException;
 
 	/**
 	 * 是否支持用户凭证credential的认证处理，返回值true表示支持，
@@ -27,6 +27,6 @@ public interface AuthenticationHandler {
 	 * 
 	 * @param credential 用户凭据
 	 */
-	public boolean supports(Credential credential);
+	public boolean supports(KnightCredential credential);
 
 }

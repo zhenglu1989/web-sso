@@ -1,7 +1,8 @@
 package com.github.ebnew.ki4so.core.authentication.handlers;
 
 import com.github.ebnew.ki4so.core.authentication.Credential;
-import com.github.ebnew.ki4so.core.authentication.UsernamePasswordCredential;
+import com.github.ebnew.ki4so.core.authentication.KnightCredential;
+import com.github.ebnew.ki4so.core.authentication.KnightNamePasswordCredential;
 import com.github.ebnew.ki4so.core.exception.AuthenticationException;
 
 /**
@@ -19,7 +20,7 @@ public abstract class AbstractUsernamePasswordAuthenticationHandler extends
 		AbstractPreAndPostProcessingAuthenticationHandler {
 
 	/** Default class to support if one is not supplied. */
-	private static final Class<UsernamePasswordCredential> DEFAULT_CLASS = UsernamePasswordCredential.class;
+	private static final Class<KnightNamePasswordCredential> DEFAULT_CLASS = KnightNamePasswordCredential.class;
 
 	/** Class that this instance will support. */
 	private Class<?> classToSupport = DEFAULT_CLASS;
@@ -41,9 +42,9 @@ public abstract class AbstractUsernamePasswordAuthenticationHandler extends
 	 * and delegates to abstract authenticateUsernamePasswordInternal so
 	 * subclasses do not need to cast.
 	 */
-	protected final boolean doAuthentication(final Credential credential)
+	protected final boolean doAuthentication(final KnightCredential credential)
 			throws AuthenticationException {
-		return authenticateUsernamePasswordInternal((UsernamePasswordCredential) credential);
+		return authenticateUsernamePasswordInternal((KnightNamePasswordCredential) credential);
 	}
 
 	/**
@@ -58,7 +59,7 @@ public abstract class AbstractUsernamePasswordAuthenticationHandler extends
 	 *             if authenticity cannot be determined.
 	 */
 	protected abstract boolean authenticateUsernamePasswordInternal(
-			final UsernamePasswordCredential credential)
+			final KnightNamePasswordCredential credential)
 			throws AuthenticationException;
 
 	/**
