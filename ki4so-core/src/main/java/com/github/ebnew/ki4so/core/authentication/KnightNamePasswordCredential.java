@@ -5,7 +5,7 @@ package com.github.ebnew.ki4so.core.authentication;
  * @author zhenglu
  * @since 15/4/27
  */
-public class KnightNamePasswordCredential extends KnigthAbstractParameter implements KnightCredential{
+public class KnightNamePasswordCredential extends KnightAbstractParameter implements KnightCredential{
     /**
      * 用户名
      */

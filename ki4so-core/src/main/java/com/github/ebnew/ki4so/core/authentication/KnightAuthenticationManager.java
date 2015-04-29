@@ -12,5 +12,5 @@ public interface KnightAuthenticationManager {
      * 对用户凭证进行认证，若失败则抛出异常，若成功则放回认证结果
      * @return
      */
-    public KnightAuthentication authentication();
+    public KnightAuthentication authentication(KnightCredential credential);
 }

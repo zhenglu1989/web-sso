@@ -2,7 +2,7 @@ package com.github.ebnew.ki4so.core.service;
 
 import java.io.Serializable;
 
-import com.github.ebnew.ki4so.core.authentication.Authentication;
+import com.github.ebnew.ki4so.core.authentication.KnightAuthentication;
 
 /**
  * 登录结果对象。
@@ -35,7 +35,7 @@ public class LoginResult implements Serializable{
 	/**
 	 * 认证结果信息对象。
 	 */
-	private Authentication authentication;
+	private KnightAuthentication authentication;
 
 
 	public boolean isSuccess() {
@@ -67,15 +67,11 @@ public class LoginResult implements Serializable{
 		this.msgKey = msgKey;
 	}
 
+    public KnightAuthentication getAuthentication() {
+        return authentication;
+    }
 
-	public Authentication getAuthentication() {
-		return authentication;
-	}
-
-
-	public void setAuthentication(Authentication authentication) {
-		this.authentication = authentication;
-	}
-	
-	
+    public void setAuthentication(KnightAuthentication authentication) {
+        this.authentication = authentication;
+    }
 }

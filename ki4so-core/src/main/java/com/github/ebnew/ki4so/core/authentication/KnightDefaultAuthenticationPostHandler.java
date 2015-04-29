@@ -86,9 +86,9 @@ public class KnightDefaultAuthenticationPostHandler implements KnightAuthenticat
     }
 
     private void encryCredentialWithAppKey(KnightAuthenticationImpl authentication,KnightCredential credential,KnightUser user){
-        KnigthAbstractParameter abstractParameter = null;
-        if(credential != null && credential instanceof KnigthAbstractParameter){
-            abstractParameter = (KnigthAbstractParameter)credential;
+        KnightAbstractParameter abstractParameter = null;
+        if(credential != null && credential instanceof KnightAbstractParameter){
+            abstractParameter = (KnightAbstractParameter)credential;
         }
         //若登录对应的服务参数service的值不为空，则使用该service对应的应用的key进行加密
         if(authentication != null && abstractParameter != null && abstractParameter.getParameterValue(WebConstants.SERVICE_PARAM_NAME)!=null){
