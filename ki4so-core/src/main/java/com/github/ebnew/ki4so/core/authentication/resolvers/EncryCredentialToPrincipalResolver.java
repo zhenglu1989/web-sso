@@ -1,10 +1,7 @@
 package com.github.ebnew.ki4so.core.authentication.resolvers;
 
-import com.github.ebnew.ki4so.core.authentication.Credential;
-import com.github.ebnew.ki4so.core.authentication.DefaultUserPrincipal;
-import com.github.ebnew.ki4so.core.authentication.EncryCredential;
-import com.github.ebnew.ki4so.core.authentication.Principal;
-import com.github.ebnew.ki4so.core.model.EncryCredentialInfo;
+import com.github.ebnew.ki4so.core.authentication.*;
+import com.github.ebnew.ki4so.core.model.KnightCredentialInfo;
 
 /**
  * 实现了加密后的凭据转换为对应的用户主体对象的解析器
@@ -34,14 +31,13 @@ public class EncryCredentialToPrincipalResolver implements CredentialToPrincipal
         this.supportSubClasses = supportSubClasses;
     }
 
-    @Override
-    public Principal resolvePrincipal(Credential credential) {
+    public KnightUser resolvePrincipal(KnightCredential credential) {
         //若类型匹配，则进行转换。
         if (credential != null && this.supports(credential)) {
-            EncryCredential encryCredential = (EncryCredential) credential;
-            DefaultUserPrincipal principal = new DefaultUserPrincipal();
+            KnightEncryCredential encryCredential = (KnightEncryCredential) credential;
+            DefaultKnightUser principal = new DefaultKnightUser();
             //解析加密后凭据信息。
-            EncryCredentialInfo encryCredentialInfo = encryCredential.getEncryCredentialInfo();
+            KnightCredentialInfo encryCredentialInfo = encryCredential.getCredentialInfo();
             //设置用户名为唯一标识。
             if (encryCredentialInfo != null) {
                 principal.setId(encryCredentialInfo.getUserId());
@@ -53,8 +49,7 @@ public class EncryCredentialToPrincipalResolver implements CredentialToPrincipal
         return null;
     }
 
-    @Override
-    public boolean supports(Credential credential) {
+    public boolean supports(KnightCredential credential) {
         return credential != null
                 && (this.classToSupport.equals(credential.getClass()) || (this.classToSupport
                 .isAssignableFrom(credential.getClass()))

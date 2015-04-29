@@ -14,11 +14,9 @@
         </property>
     </bean>
 	
-	<!--<bean id="appService" class="com.github.ebnew.ki4so.core.app.AppServiceImpl"></bean>-->
 
     <bean id="knightAppService" class="com.github.ebnew.ki4so.core.app.KnightAppServiceImpl" init-method="init"></bean>
 	
-	<!--<bean id="keyService" class="com.github.ebnew.ki4so.core.key.KeyServiceImpl"></bean>-->
 
     <bean id="knightKeyService" class="com.github.ebnew.ki4so.core.key.KnightKeyServiceImpl" init-method="init"></bean>
 	
@@ -30,31 +28,32 @@
 	
 	
 	<!-- ki4so中心接口服务 -->
-	<bean id="ki4soService" class="com.github.ebnew.ki4so.core.service.Ki4soServiceImpl" autowire="byName"></bean>
+    <bean id="ki4soService" class="com.github.ebnew.ki4so.core.service.KnightServiceImpl" autowire="byName"></bean>
 	
 	<bean id="loginResultToView" class="com.github.ebnew.ki4so.web.action.DefaultLoginResultToView"></bean>
 	
 	<bean id="encryCredentialManager" class="com.github.ebnew.ki4so.core.authentication.EncryCredentialManagerImpl" autowire="byName"></bean>
 
 	<!-- 认证管理器对象。 -->
-	<bean id="authenticationManager" class="com.github.ebnew.ki4so.core.authentication.AuthenticationManagerImpl">
-		<property name="authenticationHandlers">
-			<list>
-				<bean class="com.github.ebnew.ki4so.core.authentication.handlers.SimpleTestUsernamePasswordAuthenticationHandler"></bean>
-				<bean class="com.github.ebnew.ki4so.core.authentication.handlers.EncryCredentialAuthenticationHandler" autowire="byName"/>
-			</list>
-		</property>
-		
-		<property name="credentialToPrincipalResolvers">
-			<list>
-				<bean class="com.github.ebnew.ki4so.core.authentication.resolvers.UsernamePasswordCredentialToPrincipalResolver"></bean>
-				<bean class="com.github.ebnew.ki4so.core.authentication.resolvers.EncryCredentialToPrincipalResolver" autowire="byName"></bean>
-			</list>
-		</property>
-		
-		<property name="authenticationPostHandler">
-			<bean class="com.github.ebnew.ki4so.core.authentication.DefaultAuthenticationPostHandler" autowire="byName"></bean>
-		</property>
-	</bean>
+
+    <bean id="authenticationManager" class="com.github.ebnew.ki4so.core.authentication.KnightAuthenticationManagerImpl">
+        <property name="authenticationHandlers">
+            <list>
+                <bean class="com.github.ebnew.ki4so.core.authentication.handlers.SimpleTestUsernamePasswordAuthenticationHandler"></bean>
+                <bean class="com.github.ebnew.ki4so.core.authentication.handlers.EncryCredentialAuthenticationHandler" autowire="byName"/>
+            </list>
+        </property>
+
+        <property name="credentialToPrincipalResolvers">
+            <list>
+                <bean class="com.github.ebnew.ki4so.core.authentication.resolvers.UsernamePasswordCredentialToPrincipalResolver"></bean>
+                <bean class="com.github.ebnew.ki4so.core.authentication.resolvers.EncryCredentialToPrincipalResolver" autowire="byName"></bean>
+            </list>
+        </property>
+
+        <property name="authenticationPostHandler">
+            <bean class="com.github.ebnew.ki4so.core.authentication.KnightDefaultAuthenticationPostHandler" autowire="byName"></bean>
+        </property>
+    </bean>
 
 </beans>

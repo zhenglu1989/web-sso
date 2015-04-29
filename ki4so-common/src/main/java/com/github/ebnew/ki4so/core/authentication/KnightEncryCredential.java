@@ -7,7 +7,7 @@ import com.github.ebnew.ki4so.core.model.KnightCredentialInfo;
  * @author zhenglu
  * @since 15/4/27
  */
-public class KnightEncryCredential extends KnigthAbstractParameter implements KnightCredential{
+public class KnightEncryCredential extends KnightAbstractParameter implements KnightCredential{
     /**
      * 加密后的用户凭证串
      */

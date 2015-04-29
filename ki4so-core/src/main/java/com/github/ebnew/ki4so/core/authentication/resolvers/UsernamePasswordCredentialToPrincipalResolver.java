@@ -1,14 +1,14 @@
 package com.github.ebnew.ki4so.core.authentication.resolvers;
 
 import com.github.ebnew.ki4so.core.authentication.Credential;
-import com.github.ebnew.ki4so.core.authentication.DefaultUserPrincipal;
-import com.github.ebnew.ki4so.core.authentication.Principal;
-import com.github.ebnew.ki4so.core.authentication.UsernamePasswordCredential;
+import com.github.ebnew.ki4so.core.authentication.DefaultKnightUser;
+import com.github.ebnew.ki4so.core.authentication.KnightNamePasswordCredential;
+import com.github.ebnew.ki4so.core.authentication.KnightUser;
 
 public class UsernamePasswordCredentialToPrincipalResolver implements CredentialToPrincipalResolver{
 	
 	/** Default class to support if one is not supplied. */
-	private static final Class<UsernamePasswordCredential> DEFAULT_CLASS = UsernamePasswordCredential.class;
+	private static final Class<KnightNamePasswordCredential> DEFAULT_CLASS = KnightNamePasswordCredential.class;
 
 	/** Class that this instance will support. */
 	private Class<?> classToSupport = DEFAULT_CLASS;
@@ -24,11 +24,11 @@ public class UsernamePasswordCredentialToPrincipalResolver implements Credential
 	}
 
 	@Override
-	public Principal resolvePrincipal(Credential credential) {
+	public KnightUser resolvePrincipal(Credential credential) {
 		//若类型匹配，则进行转换。
 		if(credential!=null && this.supports(credential)){
-			UsernamePasswordCredential usernamePasswordCredential = (UsernamePasswordCredential)credential;
-			DefaultUserPrincipal principal = new DefaultUserPrincipal();
+            KnightNamePasswordCredential usernamePasswordCredential = (KnightNamePasswordCredential)credential;
+            DefaultKnightUser principal = new DefaultKnightUser();
 			//设置用户名为唯一标识。
 			principal.setId(usernamePasswordCredential.getUsername());
 			//设置参数表为用户属性。

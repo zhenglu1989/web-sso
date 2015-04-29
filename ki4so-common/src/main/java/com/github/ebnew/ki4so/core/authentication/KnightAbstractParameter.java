@@ -7,7 +7,7 @@ import java.util.Map;
  * @author zhenglu
  * @since 15/4/27
  */
-public abstract class KnigthAbstractParameter implements KnightParameter{
+public abstract class KnightAbstractParameter implements KnightParameter{
 
     /**
      * 其他参数表
