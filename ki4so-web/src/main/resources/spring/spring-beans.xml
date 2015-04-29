@@ -4,14 +4,15 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
 	<!-- 组合凭据解析器对象。 -->
-	<bean id="credentialResolver" class="com.github.ebnew.ki4so.web.action.CompositeCredentialResolver">
-		<property name="usernamePasswordCredentialResolver">
-			<bean class="com.github.ebnew.ki4so.web.action.UsernamePasswordCredentialResolver"></bean>
-		</property>
-		<property name="encryCredentialResolver">
-			<bean class="com.github.ebnew.ki4so.web.action.EncryCredentialResolver"></bean>
-		</property>
-	</bean>
+
+    <bean  id="credentialResolver" class="com.github.ebnew.ki4so.web.action.KnightCompositeCredentialResolver">
+        <property name="encryCredentialResolver">
+            <bean class="com.github.ebnew.ki4so.web.action.KnightEncryCredentialResolver"></bean>
+        </property>
+        <property name="usernamePasswordCredentialResolver">
+            <bean class="com.github.ebnew.ki4so.web.action.KnightUsernamePasswordCredentialResolver"></bean>
+        </property>
+    </bean>
 	
 	<!--<bean id="appService" class="com.github.ebnew.ki4so.core.app.AppServiceImpl"></bean>-->
 
