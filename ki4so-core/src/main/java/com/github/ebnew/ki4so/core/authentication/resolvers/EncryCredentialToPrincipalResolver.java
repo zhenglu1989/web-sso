@@ -14,7 +14,7 @@ public class EncryCredentialToPrincipalResolver implements CredentialToPrincipal
     /**
      * Default class to support if one is not supplied.
      */
-    private static final Class<EncryCredential> DEFAULT_CLASS = EncryCredential.class;
+    private static final Class<KnightCredential> DEFAULT_CLASS = KnightCredential.class;
 
     /**
      * Class that this instance will support.
