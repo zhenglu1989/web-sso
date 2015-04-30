@@ -32,7 +32,7 @@
 	
 	<bean id="loginResultToView" class="com.github.ebnew.ki4so.web.action.DefaultLoginResultToView"></bean>
 	
-	<bean id="encryCredentialManager" class="com.github.ebnew.ki4so.core.authentication.EncryCredentialManagerImpl" autowire="byName"></bean>
+    <bean id="encryCredentialManager" class="com.github.ebnew.ki4so.core.authentication.KnightEncryCredentialManagerImpl" autowire="byName"></bean>
 
 	<!-- 认证管理器对象。 -->
 

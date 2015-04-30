@@ -3,6 +3,8 @@ package com.github.ebnew.ki4so.web.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.github.ebnew.ki4so.core.authentication.KnightCredential;
+import com.github.ebnew.ki4so.core.service.KnightService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,14 +12,12 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.github.ebnew.ki4so.core.authentication.Credential;
-import com.github.ebnew.ki4so.core.service.Ki4soService;
 import com.github.ebnew.ki4so.core.service.LoginResult;
 import com.github.ebnew.ki4so.web.utils.WebConstants;
 
 /**
  * 登入web控制器类，处理登录的请求。
- * @author burgess yang
+ * @author 不二
  *
  */
 @Controller
@@ -26,32 +26,18 @@ public class LoginAction {
 	private static final Logger LOGGER = Logger.getLogger(LoginAction.class);
 	
 	@Autowired
-	protected CredentialResolver credentialResolver;
+	protected KnightCredentialResolver credentialResolver;
 	
 	@Autowired
-	protected Ki4soService ki4soService;
+	protected KnightService ki4soService;
 	
 	@Autowired
 	protected LoginResultToView loginResultToView;
 
-	public void setLoginResultToView(LoginResultToView loginResultToView) {
-		this.loginResultToView = loginResultToView;
-	}
 
-	public void setKi4soService(Ki4soService ki4soService) {
-		this.ki4soService = ki4soService;
-	}
 
 	/**
-	 * 设置用户凭据解析器。
-	 * @param credentialResolver
-	 */
-	public void setCredentialResolver(CredentialResolver credentialResolver) {
-		this.credentialResolver = credentialResolver;
-	}
-
-	/**
-	 * 登录接口，该接口处理所有与登录有关的请求。 包括以下几种情况： 1.
+	 * 登录接口，该接口处理所有与登录有关的请求。
 	 * 
 	 * @param
 	 * @return
@@ -60,10 +46,11 @@ public class LoginAction {
 	public ModelAndView login(HttpServletRequest request,
 			HttpServletResponse response) {
 		
-		ModelAndView mv = new ModelAndView("login");
+		ModelAndView mv = new ModelAndView();
+        mv.setViewName("login");
 		LOGGER.debug("enter login action");
 		//解析用户凭据。
-		Credential credential = credentialResolver.resolveCredential(request);
+        KnightCredential credential = credentialResolver.resolveCredential(request);
 		//没有提供任何认证凭据。
 		if(credential==null){
 			//设置serivce地址到session中。

@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.github.ebnew.ki4so.core.authentication.KnightCredential;
+import com.github.ebnew.ki4so.core.service.KnightService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,12 +33,12 @@ public class LogoutAction {
 	private static final Logger LOGGER = Logger.getLogger(LogoutAction.class);
 	
 	@Autowired
-	protected CredentialResolver credentialResolver;
+	protected KnightCredentialResolver credentialResolver;
 	
 	@Autowired
-	protected Ki4soService ki4soService;
+	protected KnightService ki4soService;
 	
-	public void setKi4soService(Ki4soService ki4soService) {
+	public void setKi4soService(KnightService ki4soService) {
 		this.ki4soService = ki4soService;
 	}
 
@@ -44,7 +46,7 @@ public class LogoutAction {
 	 * 设置用户凭据解析器。
 	 * @param credentialResolver
 	 */
-	public void setCredentialResolver(CredentialResolver credentialResolver) {
+	public void setCredentialResolver(KnightCredentialResolver credentialResolver) {
 		this.credentialResolver = credentialResolver;
 	}
 	
@@ -68,7 +70,7 @@ public class LogoutAction {
 		String service = request.getParameter(WebConstants.SERVICE_PARAM_NAME);
 		LOGGER.info("the service of logout is "+service);
 		//解析用户凭据。
-		Credential credential = credentialResolver.resolveCredential(request);
+		KnightCredential credential = credentialResolver.resolveCredential(request);
 		//调用servie统一登出所有的应用。
 		this.ki4soService.logout(credential, service);
 		

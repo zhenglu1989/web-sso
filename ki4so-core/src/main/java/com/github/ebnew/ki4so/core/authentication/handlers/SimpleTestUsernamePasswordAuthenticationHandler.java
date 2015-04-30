@@ -18,9 +18,8 @@
  */
 package com.github.ebnew.ki4so.core.authentication.handlers;
 
+import com.github.ebnew.ki4so.core.authentication.KnightNamePasswordCredential;
 import org.springframework.util.StringUtils;
-
-import com.github.ebnew.ki4so.core.authentication.UsernamePasswordCredential;
 import com.github.ebnew.ki4so.core.exception.UsernameOrPasswordInvalidException;
 
 /**
@@ -42,7 +41,7 @@ public final class SimpleTestUsernamePasswordAuthenticationHandler extends
 
 	@Override
 	public boolean authenticateUsernamePasswordInternal(
-			final UsernamePasswordCredential credential) {
+			final KnightNamePasswordCredential credential) {
 		final String username = credential.getUsername();
 		final String password = credential.getPassword();
 

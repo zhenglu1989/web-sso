@@ -1,6 +1,5 @@
 package com.github.ebnew.ki4so.core.authentication.handlers;
 
-import com.github.ebnew.ki4so.core.authentication.Credential;
 import com.github.ebnew.ki4so.core.authentication.KnightCredential;
 import com.github.ebnew.ki4so.core.authentication.KnightNamePasswordCredential;
 import com.github.ebnew.ki4so.core.exception.AuthenticationException;
@@ -106,7 +105,7 @@ public abstract class AbstractUsernamePasswordAuthenticationHandler extends
 	 * @return true if the credentials are not null and the credentials class is
 	 *         equal to the class defined in classToSupport.
 	 */
-	public final boolean supports(final Credential credential) {
+	public final boolean supports(final KnightCredential credential) {
 		return credential != null
 				&& (this.classToSupport.equals(credential.getClass()) || (this.classToSupport
 						.isAssignableFrom(credential.getClass()))

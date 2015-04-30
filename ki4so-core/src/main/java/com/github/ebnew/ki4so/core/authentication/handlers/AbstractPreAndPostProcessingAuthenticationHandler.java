@@ -1,6 +1,6 @@
 package com.github.ebnew.ki4so.core.authentication.handlers;
 
-import com.github.ebnew.ki4so.core.authentication.Credential;
+import com.github.ebnew.ki4so.core.authentication.KnightCredential;
 import com.github.ebnew.ki4so.core.exception.AuthenticationException;
 import com.github.ebnew.ki4so.core.exception.InvalidCredentialException;
 
@@ -19,7 +19,7 @@ public abstract class AbstractPreAndPostProcessingAuthenticationHandler
 	 *            the Credentials supplied
 	 * @return true if authentication should continue, false otherwise.
 	 */
-	protected boolean preAuthenticate(final Credential credential) {
+	protected boolean preAuthenticate(final KnightCredential credential) {
 		return true;
 	}
 
@@ -32,12 +32,12 @@ public abstract class AbstractPreAndPostProcessingAuthenticationHandler
 	 *            the result of the authentication attempt.
 	 * @return true if the handler should return true, false otherwise.
 	 */
-	protected boolean postAuthenticate(final Credential credential,
+	protected boolean postAuthenticate(final KnightCredential credential,
 			final boolean authenticated) {
 		return authenticated;
 	}
 
-	public final boolean authenticate(final Credential credential)
+	public final boolean authenticate(final KnightCredential credential)
 			throws AuthenticationException {
 
 		if (!preAuthenticate(credential)) {
@@ -56,7 +56,7 @@ public abstract class AbstractPreAndPostProcessingAuthenticationHandler
 	 * @return 认证结果。
 	 * @throws InvalidCredentialException
 	 */
-	protected abstract boolean doAuthentication(final Credential credential)
+	protected abstract boolean doAuthentication(final KnightCredential credential)
 			throws AuthenticationException;
 
 }
