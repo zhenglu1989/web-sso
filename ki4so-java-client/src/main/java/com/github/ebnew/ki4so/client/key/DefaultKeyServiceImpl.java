@@ -8,21 +8,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.security.InvalidKeyException;
 import java.security.Key;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.crypto.BadPaddingException;
 import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.NoSuchPaddingException;
 
+import com.github.ebnew.ki4so.core.key.KnightKey;
+import com.github.ebnew.ki4so.core.key.KnightKeyService;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
@@ -36,8 +31,6 @@ import sun.misc.BASE64Decoder;
 
 import com.alibaba.fastjson.JSON;
 import com.github.ebnew.ki4so.core.exception.ParamsNotInitiatedCorrectly;
-import com.github.ebnew.ki4so.core.key.KeyService;
-import com.github.ebnew.ki4so.core.key.Ki4soKey;
 
 /**
  * 默认的秘钥信息获取实现类，该类只是一个简单的实现，非常不安全。 在生产环境，建议请使用公钥和私钥的方式对秘钥信息
@@ -45,8 +38,7 @@ import com.github.ebnew.ki4so.core.key.Ki4soKey;
  * 
  * @author Administrator
  */
-@SuppressWarnings("deprecation")
-public class DefaultKeyServiceImpl implements KeyService {
+public class DefaultKeyServiceImpl implements KnightKeyService {
 
 	private static Logger logger = Logger.getLogger(DefaultKeyServiceImpl.class
 			.getName());
@@ -61,7 +53,7 @@ public class DefaultKeyServiceImpl implements KeyService {
 	/**
 	 * 本应用的秘钥信息。
 	 */
-	private Ki4soKey ki4soKey;
+	private KnightKey ki4soKey;
 
 	/**
 	 * 本应用的应用id.
@@ -85,7 +77,7 @@ public class DefaultKeyServiceImpl implements KeyService {
 	 * @see com.github.ebnew.ki4so.core.key.KeyService#findKeyByAppId(java.lang.String)
 	 */
 	@Override
-	public Ki4soKey findKeyByAppId(String appId) {
+	public KnightKey findKeyByAppId(String appId) {
 		if (ki4soKey == null) {
 			// do fetch key from remote server.
 			this.ki4soKey = fetchKeyFromKi4soServer();
@@ -93,9 +85,9 @@ public class DefaultKeyServiceImpl implements KeyService {
 		return ki4soKey;
 	}
 
-	private Ki4soKey fetchKeyFromKi4soServer() {
+	private KnightKey fetchKeyFromKi4soServer() {
 		HttpPost httpPost = null;
-		Ki4soKey ki4so = null;
+        KnightKey ki4so = null;
 		try {
 			httpPost = new HttpPost(ki4soServerFetchKeyUrl);
 			List<NameValuePair> nvps = new ArrayList<NameValuePair>();
@@ -106,7 +98,7 @@ public class DefaultKeyServiceImpl implements KeyService {
 				HttpEntity entity = response.getEntity();
 				String content = EntityUtils.toString(entity);
 				EntityUtils.consume(entity);
-				ki4so = JSON.parseObject(content, Ki4soKey.class);
+				ki4so = JSON.parseObject(content, KnightKey.class);
 				return ki4so;
 			}
 		} catch (Exception e) {
@@ -123,7 +115,7 @@ public class DefaultKeyServiceImpl implements KeyService {
 	 * @see com.github.ebnew.ki4so.core.key.KeyService#findKeyByKeyId(java.lang.String)
 	 */
 	@Override
-	public Ki4soKey findKeyByKeyId(String keyId) {
+	public KnightKey findKeyByKeyId(String keyId) {
 		if (ki4soKey == null) {
 			return this.findKeyByAppId(null);
 		}
